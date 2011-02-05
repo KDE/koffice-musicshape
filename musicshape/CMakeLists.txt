@@ -1,35 +1,10 @@
 add_subdirectory( fonts )
 add_subdirectory( pics )
-add_subdirectory( core )
 add_subdirectory( tests)
-
-include_directories(  )
 
 ########### Flake Plugin library ###############
 
-set( musiccore_SRCS
-    core/Global.cpp
-    core/Sheet.cpp
-    core/Part.cpp
-    core/PartGroup.cpp
-    core/Staff.cpp
-    core/Voice.cpp
-    core/Bar.cpp
-    core/VoiceBar.cpp
-    core/VoiceElement.cpp
-    core/StaffElement.cpp
-    core/Chord.cpp
-    core/Note.cpp
-    core/Clef.cpp
-    core/KeySignature.cpp
-    core/TimeSignature.cpp
-    core/StaffSystem.cpp
-
-    core/MusicXmlWriter.cpp
-    core/MusicXmlReader.cpp
-)
-
-SET (musicshape_LIB_SRCS
+SET (musicshape_SRCS
     MusicShape.cpp
     MusicShapeFactory.cpp
     MusicTool.cpp
@@ -60,7 +35,7 @@ SET (musicshape_LIB_SRCS
     actions/RemoveBarAction.cpp
     actions/TiedNoteAction.cpp
     actions/SelectionAction.cpp
-    
+
     commands/AddPartCommand.cpp
     commands/RemovePartCommand.cpp
     commands/ChangePartDetailsCommand.cpp
@@ -79,22 +54,38 @@ SET (musicshape_LIB_SRCS
     commands/MakeRestCommand.cpp
     commands/ToggleTiedNoteCommand.cpp
 
-    ${musiccore_SRCS}
+    core/Global.cpp
+    core/Sheet.cpp
+    core/Part.cpp
+    core/PartGroup.cpp
+    core/Staff.cpp
+    core/Voice.cpp
+    core/Bar.cpp
+    core/VoiceBar.cpp
+    core/VoiceElement.cpp
+    core/StaffElement.cpp
+    core/Chord.cpp
+    core/Note.cpp
+    core/Clef.cpp
+    core/KeySignature.cpp
+    core/TimeSignature.cpp
+    core/StaffSystem.cpp
+    core/MusicXmlWriter.cpp
+    core/MusicXmlReader.cpp
 )
 
-kde4_add_ui_files(musicshape_LIB_SRCS
+kde4_add_ui_files(musicshape_SRCS
     dialogs/PartsWidget.ui
     dialogs/PartDetailsDialog.ui
     dialogs/SimpleEntryWidget.ui
     dialogs/KeySignatureDialog.ui
 )
 
-kde4_add_plugin(musicshape ${musicshape_LIB_SRCS})
+kde4_add_plugin(musicshape ${musicshape_SRCS})
 
 target_link_libraries(musicshape ${FLAKE_LIBS})
-install(TARGETS musicshape DESTINATION ${PLUGIN_INSTALL_DIR})
 
 ########### install files ###############
 
+install(TARGETS musicshape DESTINATION ${PLUGIN_INSTALL_DIR})
 install( FILES musicshape.desktop DESTINATION ${SERVICES_INSTALL_DIR})
-kde4_install_icons( ${DATA_INSTALL_DIR}/koffice/icons )
