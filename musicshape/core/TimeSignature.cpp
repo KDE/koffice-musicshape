@@ -123,7 +123,7 @@ QList<int> TimeSignature::beatLengths() const
             totalLength -= groupLength;
         }
     }
-    
+
     return res;
 }
 

@@ -30,16 +30,16 @@ class KeySignatureDialog : public KDialog {
     Q_OBJECT
 public:
     explicit KeySignatureDialog(QWidget *parent = 0);
-    
+
     void setBar(int bar);
     int accidentals();
     void setAccidentals(int accidentals);
     void setMusicStyle(MusicStyle* style);
     bool updateAllStaves();
-    
+
     bool updateToNextChange();
     bool updateTillEndOfPiece();
-    
+
     int startBar();
     int endBar();
 private slots:

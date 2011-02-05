@@ -56,26 +56,26 @@ void AbstractNoteMusicAction::mousePress(Staff* staff, int barIdx, const QPointF
     Part* part = staff->part();
     Sheet* sheet = part->sheet();
     Bar* bar = sheet->bar(barIdx);
-    
+
     Clef* clef = staff->lastClefChange(barIdx, 0);
-    
+
     // loop over all noteheads
     qreal closestDist = 1e9;
     Note* closestNote = 0;
     Chord* chord = 0;
-    
+
     // outer loop, loop over all voices
     for (int v = 0; v < part->voiceCount(); v++) {
         Voice* voice = part->voice(v);
         VoiceBar* vb = voice->bar(bar);
-        
+
         // next loop over all chords
         for (int e = 0; e < vb->elementCount(); e++) {
             Chord* c = dynamic_cast<Chord*>(vb->element(e));
             if (!c) continue;
-            
+
             qreal centerX = c->x() + (c->width() / 2);
-            
+
             // check if it is a rest
             if (c->noteCount() == 0) {
                 qreal centerY = c->y() + (c->height() / 2);
@@ -86,15 +86,15 @@ void AbstractNoteMusicAction::mousePress(Staff* staff, int barIdx, const QPointF
                     chord = c;
                 }
             }
-            
+
             // lastly loop over all noteheads
             for (int n = 0; n < c->noteCount(); n++) {
                 Note* note = c->note(n);
                 if (note->staff() != staff) continue;
-                
+
                 int line = clef->pitchToLine(note->pitch());
                 qreal centerY = line * staff->lineSpacing() / 2;
-                
+
                 qreal dist = sqrt(sqr(centerX - pos.x()) + sqr(centerY - pos.y()));
                 if (dist < closestDist) {
                     closestDist = dist;
@@ -104,7 +104,7 @@ void AbstractNoteMusicAction::mousePress(Staff* staff, int barIdx, const QPointF
             }
         }
     }
-    
+
     StaffElement* se = 0;
     for (int e = 0; e < bar->staffElementCount(staff); e++) {
         StaffElement* elem = bar->staffElement(staff, e);
@@ -116,7 +116,7 @@ void AbstractNoteMusicAction::mousePress(Staff* staff, int barIdx, const QPointF
             closestDist = dist;
         }
     }
-    
+
     if (se) {
         mousePress(se, closestDist, pos);
     } else {
@@ -134,26 +134,26 @@ void AbstractNoteMusicAction::mouseMove(Staff* staff, int barIdx, const QPointF&
     Part* part = staff->part();
     Sheet* sheet = part->sheet();
     Bar* bar = sheet->bar(barIdx);
-    
+
     Clef* clef = staff->lastClefChange(barIdx, 0);
-    
+
     // loop over all noteheads
     qreal closestDist = 1e9;
     Note* closestNote = 0;
     Chord* chord = 0;
-    
+
     // outer loop, loop over all voices
     for (int v = 0; v < part->voiceCount(); v++) {
         Voice* voice = part->voice(v);
         VoiceBar* vb = voice->bar(bar);
-        
+
         // next loop over all chords
         for (int e = 0; e < vb->elementCount(); e++) {
             Chord* c = dynamic_cast<Chord*>(vb->element(e));
             if (!c) continue;
-            
+
             qreal centerX = c->x() + (c->width() / 2);
-            
+
             // check if it is a rest
             if (c->noteCount() == 0) {
                 qreal centerY = c->y() + (c->height() / 2);
@@ -164,15 +164,15 @@ void AbstractNoteMusicAction::mouseMove(Staff* staff, int barIdx, const QPointF&
                     chord = c;
                 }
             }
-            
+
             // lastly loop over all noteheads
             for (int n = 0; n < c->noteCount(); n++) {
                 Note* note = c->note(n);
                 if (note->staff() != staff) continue;
-                
+
                 int line = clef->pitchToLine(note->pitch());
                 qreal centerY = line * staff->lineSpacing() / 2;
-                
+
                 qreal dist = sqrt(sqr(centerX - pos.x()) + sqr(centerY - pos.y()));
                 if (dist < closestDist) {
                     closestDist = dist;
@@ -182,7 +182,7 @@ void AbstractNoteMusicAction::mouseMove(Staff* staff, int barIdx, const QPointF&
             }
         }
     }
-        
+
     StaffElement* se = 0;
     for (int e = 0; e < bar->staffElementCount(staff); e++) {
         StaffElement* elem = bar->staffElement(staff, e);
@@ -194,7 +194,7 @@ void AbstractNoteMusicAction::mouseMove(Staff* staff, int barIdx, const QPointF&
             closestDist = dist;
         }
     }
-    
+
     if (se) {
         mouseMove(se, closestDist, pos);
     } else {

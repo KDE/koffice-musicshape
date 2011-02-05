@@ -56,7 +56,7 @@ public:
     void setStaff(Staff* staff);
 
     Chord* chord();
-    
+
     /**
      * Returns the pitch for this note.
      */

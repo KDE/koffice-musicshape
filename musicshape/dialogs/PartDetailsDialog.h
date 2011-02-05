@@ -32,7 +32,7 @@ class PartDetailsDialog : public KDialog {
     Q_OBJECT
 public:
     explicit PartDetailsDialog(MusicCore::Part* part, QWidget *parent = 0);
-    
+
     static void showDialog(MusicTool *tool, MusicCore::Part* part, QWidget *parent = 0);
 private:
     Ui::PartDetailsDialog widget;

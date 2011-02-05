@@ -121,7 +121,7 @@ void VoiceBar::updateAccidentals()
         for (int nid = 0; nid < c->noteCount(); nid++) {
             Note* note = c->note(nid);
             Staff* s = note->staff();
-            
+
             KeySignature* ks = s->lastKeySignatureChange(bar());
             int curAccidentals = 0;
             if (ks) curAccidentals = ks->accidentals(note->pitch());

@@ -32,16 +32,16 @@ namespace MusicCore {
 class MusicXmlReader {
 public:
     MusicXmlReader(const char* musicNamespace = "http://www.koffice.org/music");
-    
+
     Sheet* loadSheet(const KoXmlElement& scoreElement);
 private:
     const char* m_namespace;
-    
+
     QString getProperty(const KoXmlElement& elem, const char *propName);
     Clef* loadClef(const KoXmlElement& element, Staff* staff);
     TimeSignature* loadTimeSignature(const KoXmlElement& element, Staff* staff);
     void loadPart(const KoXmlElement& partElement, Part* part);
-    
+
     KoXmlElement namedItem( const KoXmlNode& node, const char* localName );
     bool checkNamespace(const KoXmlNode& node);
 };

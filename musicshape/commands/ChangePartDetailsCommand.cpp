@@ -41,7 +41,7 @@ ChangePartDetailsCommand::ChangePartDetailsCommand(MusicShape* shape, Part* part
     , m_newAbbr(abbr), m_oldStaffCount(part->staffCount()), m_newStaffCount(staffCount)
 {
     setText(i18n("Change part details"));
-    
+
     if (m_newStaffCount > m_oldStaffCount) {
         TimeSignature* ts = m_part->staff(0)->lastTimeSignatureChange(0);
         for (int i = 0; i < m_newStaffCount - m_oldStaffCount; i++) {
@@ -110,7 +110,7 @@ void ChangePartDetailsCommand::redo()
         m_shape->sheet()->setStaffSystemCount(0);
         m_shape->engrave();
         m_shape->update();
-    }        
+    }
 }
 
 void ChangePartDetailsCommand::undo()
@@ -126,7 +126,7 @@ void ChangePartDetailsCommand::undo()
         }
         foreach (const NoteStaffPair & p, m_notes) {
             p.first->setStaff(p.second);
-        }        
+        }
     } else if (m_oldStaffCount < m_newStaffCount) {
         foreach (Staff* s, m_staves) {
             m_part->removeStaff(s, false);
@@ -136,5 +136,5 @@ void ChangePartDetailsCommand::undo()
         m_shape->sheet()->setStaffSystemCount(0);
         m_shape->engrave();
         m_shape->update();
-    }        
+    }
 }

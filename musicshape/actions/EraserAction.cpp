@@ -52,10 +52,10 @@ EraserAction::EraserAction(SimpleEntryTool* tool)
 void EraserAction::mousePress(Chord* chord, Note* note, qreal distance, const QPointF& pos)
 {
     Q_UNUSED( pos );
-    
+
     if (!chord) return;
     if (distance > 10) return;
-    
+
     if (note && chord->noteCount() > 1) {
         m_tool->addCommand(new RemoveNoteCommand(m_tool->shape(), chord, note));
     } else {
@@ -66,10 +66,10 @@ void EraserAction::mousePress(Chord* chord, Note* note, qreal distance, const QP
 void EraserAction::mousePress(StaffElement* se, qreal distance, const QPointF& pos)
 {
     Q_UNUSED( pos );
-    
+
     if (!se) return;
     if (distance > 10) return;
-    
+
     Bar* bar = se->bar();
     Sheet* sheet = bar->sheet();
     // remove staff element

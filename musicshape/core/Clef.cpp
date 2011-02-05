@@ -106,7 +106,7 @@ int Clef::pitchToLine(int pitch) const
     line -= pitch;
     return line;
 }
-    
+
 } // namespace MusicCore
 
 #include <Clef.moc>

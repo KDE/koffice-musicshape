@@ -45,4 +45,4 @@ public:
     virtual bool supports(const KoXmlElement & e, KoShapeLoadingContext &context) const;
 };
 
-#endif 
+#endif

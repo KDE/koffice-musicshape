@@ -50,9 +50,9 @@ void TiedNoteAction::mousePress(Chord* chord, Note* note, qreal distance, const 
 {
     Q_UNUSED( chord );
     Q_UNUSED( pos );
-    
+
     if (!note) return;
     if (distance > 15) return; // bah, magic numbers are ugly....
-    
+
     m_tool->addCommand(new ToggleTiedNoteCommand(m_tool->shape(), note));
 }

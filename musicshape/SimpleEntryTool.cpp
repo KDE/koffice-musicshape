@@ -208,7 +208,7 @@ SimpleEntryTool::SimpleEntryTool( KoCanvasBase* canvas )
     action = new DotsAction(this);
     addAction("dots", action);
     actionGroup->addAction(action);
-    
+
     action = new TiedNoteAction(this);
     addAction("tiednote", action);
     actionGroup->addAction(action);
@@ -216,7 +216,7 @@ SimpleEntryTool::SimpleEntryTool( KoCanvasBase* canvas )
     action = new SelectionAction(this);
     addAction("select", action);
     actionGroup->addAction(action);
-    
+
     actionQuarterNote->setChecked(true);
     m_activeAction = actionQuarterNote;
 
@@ -232,7 +232,7 @@ SimpleEntryTool::SimpleEntryTool( KoCanvasBase* canvas )
     clefMenu->addAction(action = new SetClefAction(Clef::Soprano, 1, 0, this));
     connect(action, SIGNAL(triggered()), this, SLOT(actionTriggered()));
     m_menus.append(clefMenu);
-    
+
     QList<QAction*> contextMenu;
 
     KAction* clefAction = new KAction(i18n("Clef"), this);
@@ -263,7 +263,7 @@ SimpleEntryTool::SimpleEntryTool( KoCanvasBase* canvas )
     tsMenu->addAction(action = new TimeSignatureAction(this, 12, 8));
     connect(action, SIGNAL(triggered()), this, SLOT(actionTriggered()));
     m_menus.append(tsMenu);
-    
+
     KAction* timeSigAction = new KAction(i18n("Time signature"), this);
     timeSigAction->setMenu(tsMenu);
     contextMenu.append(timeSigAction);
@@ -293,7 +293,7 @@ SimpleEntryTool::SimpleEntryTool( KoCanvasBase* canvas )
     ksMenu->addAction(action = new KeySignatureAction(this));
     connect(action, SIGNAL(triggered()), this, SLOT(actionTriggered()));
     m_menus.append(ksMenu);
-    
+
     KAction* keySigAction = new KAction(i18n("Key signature"), this);
     keySigAction->setMenu(ksMenu);
     contextMenu.append(keySigAction);
@@ -359,7 +359,7 @@ void SimpleEntryTool::paint( QPainter& painter, const KoViewConverter& viewConve
             painter.save();
             painter.setTransform(shape->absoluteTransformation(&viewConverter) * painter.transform());
             KoShape::applyConversion( painter, viewConverter );
-            painter.setClipRect(QRectF(QPointF(0, 0), shape->size()));            
+            painter.setClipRect(QRectF(QPointF(0, 0), shape->size()));
 
             for (int b = qMax(shape->firstBar(), m_selectionStart); b <= m_selectionEnd && b < sheet->barCount() && b <= shape->lastBar(); b++) {
                 Bar* bar = sheet->bar(b);
@@ -396,7 +396,7 @@ void SimpleEntryTool::paint( QPainter& painter, const KoViewConverter& viewConve
     painter.setTransform(m_musicshape->absoluteTransformation(&viewConverter) * painter.transform());
     KoShape::applyConversion( painter, viewConverter );
     painter.setClipRect(QRectF(QPointF(0, 0), m_musicshape->size()));
-        
+
     if (m_activeAction->isVoiceAware()) {
         for (int i = 0; i < sheet->partCount(); i++) {
             Part* p = sheet->part(i);
@@ -405,7 +405,7 @@ void SimpleEntryTool::paint( QPainter& painter, const KoViewConverter& viewConve
             }
         }
     }
-    
+
     // draw cursor
     if (m_cursor) {
         m_activeAction->renderKeyboardPreview(painter, *m_cursor);
@@ -416,11 +416,11 @@ void SimpleEntryTool::paint( QPainter& painter, const KoViewConverter& viewConve
 
 void SimpleEntryTool::mousePressEvent( KoPointerEvent* event )
 {
-    if(!m_musicshape->boundingRect().contains(event->point)) {
+    if (!m_musicshape->boundingRect().contains(event->point)) {
         QRectF area(event->point, QSizeF(1,1));
         foreach(KoShape *shape, canvas()->shapeManager()->shapesAt(area, true)) {
             MusicShape *musicshape = dynamic_cast<MusicShape*>(shape);
-            if(musicshape) {
+            if (musicshape) {
                 m_musicshape->update();
                 m_musicshape = musicshape;
                 m_musicshape->update();
@@ -428,7 +428,7 @@ void SimpleEntryTool::mousePressEvent( KoPointerEvent* event )
             }
         }
     }
-    
+
     QPointF p = m_musicshape->absoluteTransformation(0).inverted().map(event->point);
     Sheet *sheet = m_musicshape->sheet();
 
@@ -444,7 +444,7 @@ void SimpleEntryTool::mousePressEvent( KoPointerEvent* event )
         system = ss;
     }
 
-    if(system == 0) {
+    if (system == 0) {
         //kDebug() << "no staff system found";
         return;
     }
@@ -523,11 +523,11 @@ void SimpleEntryTool::mousePressEvent( KoPointerEvent* event )
 
 void SimpleEntryTool::mouseMoveEvent( KoPointerEvent* event )
 {
-    if(!m_musicshape->boundingRect().contains(event->point)) {
+    if (!m_musicshape->boundingRect().contains(event->point)) {
         QRectF area(event->point, QSizeF(1,1));
         foreach(KoShape *shape, canvas()->shapeManager()->shapesAt(area, true)) {
             MusicShape *musicshape = dynamic_cast<MusicShape*>(shape);
-            if(musicshape) {
+            if (musicshape) {
                 if (musicshape->sheet() == m_musicshape->sheet() || !event->buttons()) {
                     m_musicshape->update();
                     m_musicshape = musicshape;
@@ -537,13 +537,13 @@ void SimpleEntryTool::mouseMoveEvent( KoPointerEvent* event )
             }
         }
     }
-    
+
     m_point = m_musicshape->absoluteTransformation(0).inverted().map(event->point);
     canvas()->updateCanvas(QRectF(QPointF(event->point.x() - 100, event->point.y() - 100), QSizeF(200, 200)));
     if (event->buttons()) {
         QPointF p = m_musicshape->absoluteTransformation(0).inverted().map(event->point);
         Sheet *sheet = m_musicshape->sheet();
-        
+
         p.setY(p.y() + sheet->staffSystem(m_musicshape->firstSystem())->top());
         // find closest staff system
         StaffSystem* system = 0;
@@ -552,11 +552,11 @@ void SimpleEntryTool::mouseMoveEvent( KoPointerEvent* event )
             if (ss->top() > p.y()) break;
             system = ss;
         }
-        
-        if(system == 0) {
+
+        if (system == 0) {
             return;
         }
-        
+
         // find closest staff
         Staff* closestStaff = 0;
         qreal dist = 1e99;
@@ -577,15 +577,15 @@ void SimpleEntryTool::mouseMoveEvent( KoPointerEvent* event )
                 }
             }
         }
-        
+
         //    int line = closestStaff->line(yrel - closestStaff->top());
         //    kDebug() << "line: " << line;
-        
+
         Part* part = closestStaff->part();
         for (int i = part->voiceCount(); i <= m_voice; i++) {
             part->addVoice();
         }
-        
+
         // find correct bar
         Bar* bar = 0;
         int barIdx = -1;
@@ -604,16 +604,16 @@ void SimpleEntryTool::mouseMoveEvent( KoPointerEvent* event )
                 break;
             }
         }
-        
+
         if (!bar) return;
-        
+
         QPointF point;
         if (inPrefix) {
             point = QPointF(p.x() - bar->prefixPosition().x() - bar->prefix(), yrel - closestStaff->top());
         } else {
             point = QPointF(p.x() - bar->position().x(), yrel - closestStaff->top());
         }
-        
+
         m_activeAction->mouseMove(closestStaff, barIdx, point);
     }
 }

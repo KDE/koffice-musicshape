@@ -38,7 +38,7 @@ namespace MusicCore {
         WholeLength = HalfLength * 2,
         DoubleWholeLength = WholeLength * 2
     };
-    
+
     /**
      * This enum represents the various supported durations for chords/rests.
      */
@@ -53,12 +53,12 @@ namespace MusicCore {
         WholeNote,
         BreveNote
     };
-    
+
     enum StemDirection {
         StemUp,
         StemDown
     };
-    
+
     enum BeamType {
         BeamStart,
         BeamContinue,
@@ -67,23 +67,23 @@ namespace MusicCore {
         BeamForwardHook,
         BeamBackwardHook
     };
-    
-    
+
+
     /**
      * Convert a duration to a number of ticks.
      *
      * @param duration the duration to convert to ticks
      */
     int durationToTicks(Duration duration);
-    
+
     /**
      * Concert a duration to a string representation as it is expected when written to a MusicXML file.
      *
      * @param duration the duration to convert to a string
      */
     QString durationToString(Duration duration);
-    
-    
+
+
 } // namespace MusicCore
 
 #endif // MUSIC_CORE_GLOBAL_H

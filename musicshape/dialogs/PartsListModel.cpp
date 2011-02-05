@@ -51,7 +51,7 @@ QVariant PartsListModel::data(const QModelIndex& index, int role) const
 void PartsListModel::partAdded(int index, Part* part)
 {
     Q_UNUSED( part );
-    
+
     beginInsertRows(QModelIndex(), index, index);
     endInsertRows();
 }
@@ -59,7 +59,7 @@ void PartsListModel::partAdded(int index, Part* part)
 void PartsListModel::partRemoved(int index, Part* part)
 {
     Q_UNUSED( part );
-    
+
     beginRemoveRows(QModelIndex(), index, index);
     endRemoveRows();
 }

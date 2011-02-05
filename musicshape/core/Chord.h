@@ -117,13 +117,13 @@ public:
      * @param deleteNote should the note also be deleted
      */
     void removeNote(Note* note, bool deleteNote = true);
-    
+
     /**
      * This overrides the method in the VoiceElement class to return the correct y position based on pitch
      * of the notes this chord contains.
      */
     virtual qreal y() const;
-    
+
     /**
      * This overrides the method in the VoiceElement class to return the correct height based on the pitch of
      * the notes in this chord.
@@ -131,7 +131,7 @@ public:
     virtual qreal height() const;
     virtual qreal width() const;
     virtual qreal beatline() const;
-    
+
     qreal stemX() const;
     qreal centerX() const;
     qreal topNoteY() const;
@@ -142,14 +142,14 @@ public:
     StemDirection stemDirection() const;
     StemDirection desiredStemDirection() const;
     void setStemDirection(StemDirection direction);
-    
+
     /**
      * Length of the stem as it extends beyond the top-most or bottom-most note, measured in number of lines.
      */
     qreal stemLength() const;
     void setStemLength(qreal stemLength);
     qreal desiredStemLength() const;
-    
+
     int beamCount() const;
     const Chord* beamStart(int index) const;
     const Chord* beamEnd(int index) const;
@@ -171,12 +171,12 @@ public slots:
      * @param dots the new number of dots
      */
     void setDots(int dots);
-signals:    
+signals:
     /**
      * This signal is emitted when the duration of this chord changes.
      */
     void durationChanged(Duration duration);
-    
+
     /**
      * This signal is emitted when the number of dots of this chord changes.
      */

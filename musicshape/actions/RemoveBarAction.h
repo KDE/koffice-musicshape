@@ -25,7 +25,7 @@ class RemoveBarAction : public AbstractMusicAction
 {
 public:
     RemoveBarAction(SimpleEntryTool* tool);
-    
+
     virtual void mousePress(MusicCore::Staff* staff, int bar, const QPointF& pos);
 };
 

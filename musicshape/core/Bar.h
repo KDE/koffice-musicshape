@@ -79,7 +79,7 @@ public:
      * Returns the (horizontal) size of the bar.
      */
     qreal size() const;
-    
+
     /**
      * The prefix of a bar contains any staff elements at time 0 such as clefs and key signatures.
      * When this bar is the first bar of a staff system the prefix will be drawn at the end of the previous
@@ -91,27 +91,27 @@ public:
      * to position(). This means that elements in the prefix have negative x coordinates.
      */
     qreal prefix() const;
-    
+
     /**
      * Set the size of the prefix of this bar. The prefix contains all staff elements at time 0.
      *
      * @param prefix the new size of the prefix of this bar
      */
     void setPrefix(qreal prefix);
-    
+
     /**
      * Returns the position at which the prefix is drawn. This position is relative to the top-left corner of the sheet
      * the bar is in. Most often this is position() - (prefix(), 0).
      */
     QPointF prefixPosition() const;
-    
+
     /**
      * Sets the position of the prefix of this bar.
      *
      * @param pos the new position of the prefix of this bar
      */
     void setPrefixPosition(const QPointF& pos);
-    
+
     /**
      * Returns the desired size of this bar. The desired size is the space all the elements in this bar would ideally use.
      */
@@ -124,24 +124,24 @@ public:
      * Returns the number of staff elements in the given staff in this bar.
      */
     int staffElementCount(Staff* staff) const;
-    
+
     /**
      * Returns the staff element with the given index in the given staff in this bar.
      */
     StaffElement* staffElement(Staff* staff, int index);
-    
+
     /**
      * Returns the index of the provided staff element in this bar (this index is not the same as the index that is used in calls to
      * staffElement, as this index is global for the bar, and that index is relative to the elements in a specific staff).
      */
     int indexOfStaffElement(StaffElement* element);
-    
+
     /**
      * Adds a staff element to this bar. The indexHint parameter can be used to provide a hint as to what index the element should be
      * inserted. If inserting at that index does not result in a correct sort order for the staff elements, the indexHint is ignored.
      */
     void addStaffElement(StaffElement* element, int indexHint = -1);
-    
+
     /**
      * Remove a staff element from this bar. If deleteElement is true, the element is not only removed but also deleted.
      */
@@ -152,7 +152,7 @@ public slots:
      * to the position of the bar.
      */
     void setPosition(const QPointF& position, bool setPrefix=true);
-    
+
     /**
      * Sets the size of the bar.
      *
@@ -164,7 +164,7 @@ signals:
      * This signal is emitted when the position of the bar is changed.
      */
     void positionChanged(const QPointF& position);
-    
+
     /**
      * This signal is emitted when the size of the bar is changed.
      */

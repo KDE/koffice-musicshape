@@ -165,13 +165,13 @@ void Bar::addStaffElement(StaffElement* element, int index)
             StaffElement* se = d->staffElements[index];
             if (se->startTime() < element->startTime()) correct = false;
         }
-        
+
         if (correct) {
             d->staffElements.insert(index, element);
             return;
         }
     }
-    
+
     for (int i = 0; i < d->staffElements.size(); i++) {
         StaffElement* se = d->staffElements[i];
         if (se->startTime() > element->startTime() || (se->startTime() == element->startTime() && se->priority() < element->priority())) {

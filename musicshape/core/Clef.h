@@ -55,7 +55,7 @@ public:
      * @param octaveChange the octaveChange to apply to notes following this clef
      */
     Clef(Staff* staff, int startTime, ClefShape shape, int line, int octaveChange = 0);
-    
+
     /**
      * Destructor.
      */
@@ -65,27 +65,27 @@ public:
      * Returns the shape of the clef.
      */
     ClefShape shape() const;
-    
+
     /**
      * Returns the line the clef is displayed on.
      */
     int line() const;
-    
+
     /**
      * Returns the octave change of this clef.
      */
     int octaveChange() const;
-    
+
     /**
      * Returns the pitch for a given line.
      */
     int lineToPitch(int line) const;
-    
+
     /**
      * Returns the line for a given pitch.
      */
     int pitchToLine(int pitch) const;
-    
+
     /**
      * Returns the priority of this staff element with regard to order in which it should be sorted.
      */
@@ -104,7 +104,7 @@ public slots:
      * @param line the new line this clef is displayed on
      */
     void setLine(int line);
-    
+
     /**
      * Changes the octave change of this clef.
      *
@@ -116,12 +116,12 @@ signals:
      * This signal is emitted whenever the shape of the clef changes.
      */
     void shapeChanged(ClefShape shape);
-    
+
     /**
      * This signal is emitted whenever the line of the clef changes.
      */
     void lineChanged(int line);
-    
+
     /**
      * This signal is emitted whenever the octaveChange of the clef changes.
      */

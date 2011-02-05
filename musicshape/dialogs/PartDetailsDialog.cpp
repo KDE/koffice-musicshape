@@ -33,7 +33,7 @@ PartDetailsDialog::PartDetailsDialog(Part* part, QWidget* parent)
     QWidget* w = new QWidget(this);
     widget.setupUi(w);
     setMainWidget(w);
-    
+
     widget.nameEdit->setText(part->name());
     widget.shortNameEdit->setText(part->shortName());
     widget.staffCount->setValue(part->staffCount());

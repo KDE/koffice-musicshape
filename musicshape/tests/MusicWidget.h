@@ -40,7 +40,7 @@ public:
      * same sheet in multiple widgets, as the layout of the sheet is stored in the sheet itself.
      */
     void setSheet(MusicCore::Sheet* sheet);
-    
+
     /**
      * Get the sheet that is currently displayed in this widget.
      */
@@ -50,7 +50,7 @@ public:
      * Sets the scale at which the music should be painted in this widget.
      */
     void setScale(qreal scale);
-    
+
     /**
      * Gets the scale at which the music is painted in this widget.
      */

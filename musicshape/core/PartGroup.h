@@ -122,7 +122,7 @@ public slots:
      * Changes the short name of this part group.
      */
     void setShortName(const QString& shortName);
-    
+
     /**
      * Changes the grouping symbol of this group.
      *

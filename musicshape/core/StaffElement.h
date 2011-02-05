@@ -51,7 +51,7 @@ public:
     Staff* staff();
     Bar* bar();
     void setBar(Bar* bar);
-    
+
     /**
      * Returns the x position of this musical element. The x position of an element is measured relative to the left
      * barline of the bar the element is in.
@@ -79,11 +79,11 @@ public:
      * Returns the start time of this musical elements in ticks.
      */
     int startTime() const;
-    
+
     /**
      * Returns the priority of this staff element with regard to order in which it should be sorted. The higher the
      * priority of an element is, it is sorted more to the left in a group of element with equal start time.
-     */    
+     */
     virtual int priority() const = 0;
 public slots:
     /**

@@ -32,7 +32,7 @@ SetTimeSignatureCommand::SetTimeSignatureCommand(MusicShape* shape, Bar* bar, in
     : m_shape(shape), m_bar(bar)
 {
     setText(i18n("Change time signature"));
-    
+
     Sheet* sheet = bar->sheet();
     for (int p = 0; p < sheet->partCount(); p++) {
         Part* part = sheet->part(p);

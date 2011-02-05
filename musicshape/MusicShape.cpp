@@ -214,7 +214,7 @@ int MusicShape::lastSystem() const
 
 int MusicShape::firstBar() const
 {
-    return m_sheet->staffSystem(m_firstSystem)->firstBar();    
+    return m_sheet->staffSystem(m_firstSystem)->firstBar();
 }
 
 int MusicShape::lastBar() const

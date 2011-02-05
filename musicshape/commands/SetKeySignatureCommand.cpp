@@ -37,13 +37,13 @@ SetKeySignatureCommand::SetKeySignatureCommand(MusicShape* shape, int bar, Regio
 {
     setText(i18n("Change key signature"));
     Sheet* sheet = shape->sheet();
-    
+
     if (staff) {
         m_newKeySignatures.append(qMakePair(sheet->bar(bar), new KeySignature(staff, 0, accidentals)));
-        
+
         for (int b = bar; b < sheet->barCount(); b++) {
             Bar* curBar = sheet->bar(b);
-            
+
             for (int i = 0; i < curBar->staffElementCount(staff); i++) {
                 KeySignature* c = dynamic_cast<KeySignature*>(curBar->staffElement(staff, i));
                 if (c && c->startTime() == 0) {
@@ -51,7 +51,7 @@ SetKeySignatureCommand::SetKeySignatureCommand(MusicShape* shape, int bar, Regio
                     break;
                 }
             }
-            
+
             if (type == NextChange) break;
         }
     } else {
@@ -60,10 +60,10 @@ SetKeySignatureCommand::SetKeySignatureCommand(MusicShape* shape, int bar, Regio
             for (int s = 0; s < part->staffCount(); s++) {
                 Staff* staff = part->staff(s);
                 m_newKeySignatures.append(qMakePair(sheet->bar(bar), new KeySignature(staff, 0, accidentals)));
-                
+
                 for (int b = bar; b < sheet->barCount(); b++) {
                     Bar* curBar = sheet->bar(b);
-                    
+
                     for (int i = 0; i < curBar->staffElementCount(staff); i++) {
                         KeySignature* ks = dynamic_cast<KeySignature*>(curBar->staffElement(staff, i));
                         if (ks) {
@@ -71,11 +71,11 @@ SetKeySignatureCommand::SetKeySignatureCommand(MusicShape* shape, int bar, Regio
                             break;
                         }
                     }
-                    
+
                     if (type == NextChange) break;
                 }
             }
-        }        
+        }
     }
 }
 
@@ -84,13 +84,13 @@ SetKeySignatureCommand::SetKeySignatureCommand(MusicShape* shape, int startBar, 
 {
     setText(i18n("Change key signature"));
     Sheet* sheet = shape->sheet();
-    
+
     if (staff) {
         m_newKeySignatures.append(qMakePair(sheet->bar(startBar), new KeySignature(staff, 0, accidentals)));
-        
+
         for (int b = startBar; b <= endBar; b++) {
             Bar* curBar = sheet->bar(b);
-            
+
             for (int i = 0; i < curBar->staffElementCount(staff); i++) {
                 KeySignature* c = dynamic_cast<KeySignature*>(curBar->staffElement(staff, i));
                 if (c && c->startTime() == 0) {
@@ -99,14 +99,14 @@ SetKeySignatureCommand::SetKeySignatureCommand(MusicShape* shape, int startBar, 
                 }
             }
         }
-        
+
         // Figure out old key signature in endBar if more bars follow
         if (endBar < sheet->barCount()-1) {
             KeySignature* ks = staff->lastKeySignatureChange(endBar+1);
             if (!ks || ks->bar() != sheet->bar(endBar+1)) {
                 KeySignature* n = new KeySignature(staff, 0, ks ? ks->accidentals() : 0);
                 m_newKeySignatures.append(qMakePair(sheet->bar(endBar+1), n));
-            } 
+            }
         }
     } else {
         for (int p = 0; p < sheet->partCount(); p++) {
@@ -114,10 +114,10 @@ SetKeySignatureCommand::SetKeySignatureCommand(MusicShape* shape, int startBar, 
             for (int s = 0; s < part->staffCount(); s++) {
                 Staff* staff = part->staff(s);
                 m_newKeySignatures.append(qMakePair(sheet->bar(startBar), new KeySignature(staff, 0, accidentals)));
-                
+
                 for (int b = startBar; b <= endBar; b++) {
                     Bar* curBar = sheet->bar(b);
-                    
+
                     for (int i = 0; i < curBar->staffElementCount(staff); i++) {
                         KeySignature* ks = dynamic_cast<KeySignature*>(curBar->staffElement(staff, i));
                         if (ks) {
@@ -133,10 +133,10 @@ SetKeySignatureCommand::SetKeySignatureCommand(MusicShape* shape, int startBar, 
                     if (!ks || ks->bar() != sheet->bar(endBar+1)) {
                         KeySignature* n = new KeySignature(staff, 0, ks ? ks->accidentals() : 0);
                         m_newKeySignatures.append(qMakePair(sheet->bar(endBar+1), n));
-                    } 
+                    }
                 }
             }
-        }        
+        }
     }
 }
 

@@ -85,7 +85,7 @@ public:
      * Returns the duration of this musical elements in ticks.
      */
     int length() const;
-    
+
     /**
      * Returns the beatline of this element. This is an x position relative to the start of the element.
      */
@@ -121,7 +121,7 @@ protected slots:
      * @param height the new height of this musical element
      */
     void setHeight(qreal height);
-    
+
     void setBeatline(qreal beatline);
 signals:
     void xChanged(qreal x);

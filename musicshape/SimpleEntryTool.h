@@ -58,7 +58,7 @@ public:
 
     MusicShape* shape();
     int voice();
-    
+
     void setSelection(int startBar, int endBar, MusicCore::Staff* startStaff, MusicCore::Staff* endStaff);
 protected:
     virtual QWidget * createOptionWidget();
@@ -83,7 +83,7 @@ private:
     MusicCore::Staff *m_selectionStaffStart, *m_selectionStaffEnd;
 
     MusicCursor* m_cursor;
-    QList<QMenu*> m_menus; 
+    QList<QMenu*> m_menus;
 };
 
 #endif

@@ -56,12 +56,12 @@ public:
      * @param pitch the pitch of the note for which to return the accidentals
      */
     int accidentals(int pitch) const;
-    
+
     /**
      * Returns the priority of this staff element with regard to order in which it should be sorted.
-     */    
+     */
     virtual int priority() const;
-    
+
     int cancel() const;
     int cancel(int pitch) const;
 public slots:
@@ -72,7 +72,7 @@ public slots:
      * @param accidentals the new accidentals for this key signature
      */
     void setAccidentals(int accidentals);
-    
+
     void setCancel(int cancel);
 signals:
     /**

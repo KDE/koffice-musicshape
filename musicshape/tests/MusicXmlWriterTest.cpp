@@ -39,23 +39,23 @@ class MusicXmlWriterTest : public QObject
 {
     Q_OBJECT
 private slots:
-    void init() 
+    void init()
     {
     }
-    
-    void cleanup() 
+
+    void cleanup()
     {
     }
-    
+
     void testParts()
     {
         Sheet* sheet = new Sheet();
         Part* p = sheet->addPart("first part");
         p->setShortName("part1");
         sheet->addPart("second part");
-        
+
         sheet->addBar();
-        
+
         validateOutput(sheet, "parts.xml");
         delete sheet;
     }
@@ -67,20 +67,20 @@ private slots:
         for (int i = 0; i < 8; i++) {
             sheet->addPart(QString("part %1").arg(i));
         }
-        
+
         PartGroup* pg = sheet->addPartGroup(0, 1);
         pg->setName("group 1");
-        
+
         pg = sheet->addPartGroup(2, 3);
         pg->setSymbol(PartGroup::Brace);
-        
+
         pg = sheet->addPartGroup(4, 5);
         pg->setSymbol(PartGroup::Line);
-        
+
         pg = sheet->addPartGroup(6, 7);
         pg->setSymbol(PartGroup::Bracket);
         pg->setCommonBarLines(false);
-        
+
         validateOutput(sheet, "partgroups.xml");
         delete sheet;
     }
@@ -92,19 +92,19 @@ private slots:
         for (int i = 0; i < 7; i++) {
             sheet->addPart(QString("part %1").arg(i));
         }
-        
+
         sheet->addPartGroup(0, 1)->setName("group 1");
         sheet->addPartGroup(1, 2)->setName("group 2");
         sheet->addPartGroup(2, 3)->setName("group 3");
-        
+
         sheet->addPartGroup(0, 6)->setName("group 4");
         sheet->addPartGroup(4, 5)->setName("group 5");
         sheet->addPartGroup(4, 5)->setName("group 6");
-        
+
         validateOutput(sheet, "nestedpartgroups.xml");
         delete sheet;
     }
-    
+
     void testNoteDurations()
     {
         Sheet* sheet = new Sheet();
@@ -113,7 +113,7 @@ private slots:
         Voice* voice = part->addVoice();
         Staff* staff = part->addStaff();
         VoiceBar* vb = bar->voice(voice);
-        
+
         for (Duration d = HundredTwentyEighthNote; d <= BreveNote; d = (Duration)(d + 1)) {
             Chord* c = new Chord(d);
             c->addNote(staff, 0);
@@ -124,7 +124,7 @@ private slots:
             c->addNote(staff, 0);
             vb->addElement(c);
         }
-        
+
         validateOutput(sheet, "notedurations.xml");
         delete sheet;
     }
@@ -137,17 +137,17 @@ private slots:
         Voice* voice = part->addVoice();
         Staff* staff = part->addStaff();
         VoiceBar* vb = bar->voice(voice);
-        
+
         for (int p = -20; p <= 20; p++) {
             Chord* c = new Chord(QuarterNote);
             c->addNote(staff, p);
             vb->addElement(c);
         }
-        
+
         validateOutput(sheet, "notepitch.xml");
         delete sheet;
     }
-        
+
     void testNoteAccidentals()
     {
         Sheet* sheet = new Sheet();
@@ -156,13 +156,13 @@ private slots:
         Voice* voice = part->addVoice();
         Staff* staff = part->addStaff();
         VoiceBar* vb = bar->voice(voice);
-        
+
         for (int a = -2; a <= 2; a++) {
             Chord* c = new Chord(QuarterNote);
             c->addNote(staff, 0, a);
             vb->addElement(c);
         }
-        
+
         validateOutput(sheet, "noteaccidentals.xml");
         delete sheet;
     }
@@ -173,7 +173,7 @@ private slots:
 bool compareNodes(KoXmlNode& valid, KoXmlNode& result, QString path)
 {
     path += '/' + valid.nodeName();
-    
+
     if (result.localName() != valid.localName()) {
         FAIL(QString("nodeName does not match at %1; expected %2, received %3").arg(path, valid.nodeName(), result.nodeName()).toLocal8Bit().constData());
     }
@@ -212,7 +212,7 @@ bool compareNodes(KoXmlNode& valid, KoXmlNode& result, QString path)
                 FAIL(QString("incorrect attribute %1 for %2; expected %3, received %4").arg(attr, path, v.attribute(attr), r.attribute(attr)).toLocal8Bit().constData());
             }
         }
-        
+
         foreach (QString attr, KoXml::attributeNames(r)) {
             if (!v.hasAttribute(attr)) {
                 FAIL(QString("incorrect attribute %1 for %2; expected %3, received %4").arg(attr, path, v.attribute(attr), r.attribute(attr)).toLocal8Bit().constData());
@@ -243,11 +243,11 @@ bool validateOutput(Sheet* sheet, const char* fname)
 
     xmlWriter.startDocument("score-partwise", "-//Recordare//DTD MusicXML 1.1 Partwise//EN",
                               "http://www.musicxml.org/dtds/partwise.dtd");
-                              
+
     writer.writeSheet(xmlWriter, sheet);
     xmlWriter.endDocument();
-    
-    
+
+
     QFile validFile(QString(KDESRCDIR "/files/%1").arg(fname));
     validFile.open(QIODevice::ReadOnly);
     KoXmlDocument valid;

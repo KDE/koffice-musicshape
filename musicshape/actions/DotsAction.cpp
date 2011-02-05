@@ -54,6 +54,6 @@ void DotsAction::mousePress(Chord* chord, Note* note, qreal distance, const QPoi
 
     if (!chord) return;
     if (distance > 10) return; // bah, magic numbers are ugly....
-    
+
     m_tool->addCommand(new AddDotCommand(m_tool->shape(), chord));
 }

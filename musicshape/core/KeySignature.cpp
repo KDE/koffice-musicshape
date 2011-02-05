@@ -104,28 +104,28 @@ int KeySignature::cancel() const
 void KeySignature::setCancel(int cancel)
 {
     if (d->cancelCount == cancel) return;
-    
+
     d->cancelCount = cancel;
-    
+
     // first zero the accidentals array
     for (int i = 0; i < 7; i++) {
         d->cancel[i] = 0;
     }
-    
+
     // now add sharps
     int idx = 3;
     for (int i = 0; i < cancel; i++) {
         d->cancel[idx]++;
         idx = (idx + 4) % 7;
     }
-    
+
     // and flats
     idx = 6;
     for (int i = 0; i > cancel; i--) {
         d->cancel[idx]--;
         idx = (idx + 3) % 7;
     }
-    
+
     setWidth(6 * std::abs(d->accidentalCount) + 6 * std::abs(d->cancelCount));
 }
 

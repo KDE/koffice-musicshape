@@ -131,7 +131,7 @@ int Staff::line(qreal y) const
 Clef* Staff::lastClefChange(int bar, int time, Clef* oldClef)
 {
     if (!part()) return NULL;
-    
+
     if (time < 0) time = INT_MAX;
     for (int b = bar; b >= 0; b--) {
         Bar* curBar = part()->sheet()->bar(b);
@@ -157,7 +157,7 @@ Clef* Staff::lastClefChange(Bar* bar, int time, Clef* oldClef)
 KeySignature* Staff::lastKeySignatureChange(int bar)
 {
     if (!part()) return NULL;
-    
+
     for (int b = bar; b >= 0; b--) {
         Bar* curBar = part()->sheet()->bar(b);
         for (int i = curBar->staffElementCount(this)-1; i >= 0; i--) {
@@ -177,7 +177,7 @@ KeySignature* Staff::lastKeySignatureChange(Bar* bar)
 TimeSignature* Staff::lastTimeSignatureChange(int bar)
 {
     if (!part()) return NULL;
-    
+
     for (int b = bar; b >= 0; b--) {
         Bar* curBar = part()->sheet()->bar(b);
         for (int i = curBar->staffElementCount(this)-1; i >= 0; i--) {
@@ -199,7 +199,7 @@ void Staff::updateAccidentals(int fromBar)
     KeySignature* ks = lastKeySignatureChange(fromBar);
     for (int barIdx = fromBar, barCount = part()->sheet()->barCount(); barIdx < barCount; barIdx++) {
         Bar* bar = part()->sheet()->bar(barIdx);
-        
+
         // process key signature changes in this bar
         for (int i = 0; i < bar->staffElementCount(this); i++) {
             StaffElement* e = bar->staffElement(this, i);
@@ -208,13 +208,13 @@ void Staff::updateAccidentals(int fromBar)
                 ks = curks;
             }
         }
-        
+
         // current accidentals for all notes with pitches from -40..40
         // curAccidentals[pitch+40]; value is #accidentals + 100 (so 0 means no notes seen yet, use the keysig)
         int curAccidentals[81] = {0};
         // and a map for all other pitches (there shouldn't be much anyway)
         QMap<int, int> accidentalsMap;
-        
+
         // now loop over all notes in all voices in this bar, and check if they are in this staff
         // if they are, set accidentals visibility and update current accidentals
         for (int v = 0; v < part()->voiceCount(); v++) {
@@ -235,7 +235,7 @@ void Staff::updateAccidentals(int fromBar)
                         } else {
                             cur -= 100;
                         }
-                        
+
                         curAccidentals[pitch+40] = note->accidentals() + 100;
                     } else {
                         if (accidentalsMap.contains(pitch)) {
@@ -245,10 +245,10 @@ void Staff::updateAccidentals(int fromBar)
                         } else {
                             cur = 0;
                         }
-                        
+
                         accidentalsMap[pitch] = note->accidentals();
                     }
-                    
+
                     note->setDrawAccidentals(note->accidentals() != cur);
                 }
             }

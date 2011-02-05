@@ -34,9 +34,9 @@ class StaffElementPreviewWidget : public QWidget
 public:
     explicit StaffElementPreviewWidget(QWidget* parent = 0);
     virtual ~StaffElementPreviewWidget();
-    
+
     virtual QSize sizeHint() const;
-    
+
     void setMusicStyle(MusicStyle* style);
     void setStaffElement(MusicCore::StaffElement* se);
     MusicCore::Staff* staff();

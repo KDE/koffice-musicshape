@@ -111,20 +111,20 @@ static void writeChord(KoXmlWriter& w, Chord* chord, Voice* voice, Part* part, i
         w.startElement("music:duration");
         w.addTextNode(QString::number(chord->length()));
         w.endElement(); // music:duration
-        
+
         w.startElement("music:voice");
         w.addTextNode(QString::number(part->indexOfVoice(voice) + 1));
         w.endElement(); // music:voice
-        
+
         w.startElement("music:type");
         w.addTextNode(durationToString(chord->duration()));
         w.endElement(); // music:type
-        
+
         for (int i = 0; i < chord->dots(); i++) {
             w.startElement("music:dot");
             w.endElement(); // music:dot
         }
-        
+
         if (part->staffCount() > 1) {
             // only write staff info when more than one staff exists
             Staff* s = chord->staff();
@@ -136,7 +136,7 @@ static void writeChord(KoXmlWriter& w, Chord* chord, Voice* voice, Part* part, i
     } else for (int n = 0; n < chord->noteCount(); n++) {
         Staff* staff = chord->note(n)->staff();
         w.startElement("music:note");
-        
+
         if (n > 0) {
             w.startElement("music:chord");
             w.endElement(); // music:chord
@@ -154,7 +154,7 @@ static void writeChord(KoXmlWriter& w, Chord* chord, Voice* voice, Part* part, i
             w.addTextNode(QString::number(chord->note(n)->accidentals()));
             w.endElement(); // music:alter
         }
-        
+
         w.startElement("music:octave");
         w.addTextNode(QString::number((pitch + 4*7) / 7)); // first add, than divide to get proper rounding
         w.endElement(); // music:octave
@@ -162,20 +162,20 @@ static void writeChord(KoXmlWriter& w, Chord* chord, Voice* voice, Part* part, i
         w.startElement("music:duration");
         w.addTextNode(QString::number(chord->length()));
         w.endElement(); // music:duration
-        
+
         w.startElement("music:voice");
         w.addTextNode(QString::number(part->indexOfVoice(voice) + 1));
         w.endElement(); // music:voice
-        
+
         w.startElement("music:type");
         w.addTextNode(durationToString(chord->duration()));
         w.endElement(); // music:type
-        
+
         for (int i = 0; i < chord->dots(); i++) {
             w.startElement("music:dot");
             w.endElement(); // music:dot
         }
-        
+
         int activeAccidentals = 0;
         KeySignature* ks = staff->lastKeySignatureChange(bar);
         if (ks) activeAccidentals = ks->accidentals(chord->note(n)->pitch());
@@ -193,7 +193,7 @@ static void writeChord(KoXmlWriter& w, Chord* chord, Voice* voice, Part* part, i
                 }
             }
         }
-        
+
         if (chord->note(n)->accidentals() != activeAccidentals) {
             w.startElement("music:accidental");
             switch (chord->note(n)->accidentals()) {
@@ -205,7 +205,7 @@ static void writeChord(KoXmlWriter& w, Chord* chord, Voice* voice, Part* part, i
             }
             w.endElement(); // music:accidental
         }
-        
+
         if (part->staffCount() > 1) {
             // only write staff info when more than one staff exists
             Staff* s = chord->note(n)->staff();
@@ -220,13 +220,13 @@ static void writeChord(KoXmlWriter& w, Chord* chord, Voice* voice, Part* part, i
 static void writeClef(KoXmlWriter& w, Clef* clef, Part* part)
 {
     w.startElement("music:clef");
-  
+
       if (part->staffCount() > 1) {
         // only write staff info when more than one staff exists
         Staff* s = clef->staff();
         w.addAttribute("number", QString::number(part->indexOfStaff(s) + 1));
     }
-    
+
     w.startElement("music:sign");
     switch (clef->shape()) {
         case Clef::GClef: w.addTextNode("G"); break;
@@ -234,45 +234,45 @@ static void writeClef(KoXmlWriter& w, Clef* clef, Part* part)
         case Clef::CClef: w.addTextNode("C"); break;
     }
     w.endElement(); // music:sign
-    
+
     w.endElement(); // music:clef
 }
 
 static void writeKeySignature(KoXmlWriter& w, KeySignature* ks, Part* part)
 {
     w.startElement("music:key");
-    
+
     if (part->staffCount() > 1) {
         // only write staff info when more than one staff exists
         Staff* s = ks->staff();
         w.addAttribute("number", QString::number(part->indexOfStaff(s) + 1));
     }
-    
+
     w.startElement("music:fifths");
     w.addTextNode(QString::number(ks->accidentals()));
     w.endElement(); // music:fifths
-    
+
     w.endElement(); // music:key
 }
 
 static void writeTimeSignature(KoXmlWriter& w, TimeSignature* ts, Part* part)
 {
     w.startElement("music:time");
-    
+
     if (part->staffCount() > 1) {
         // only write staff info when more than one staff exists
         Staff* s = ts->staff();
         w.addAttribute("number", QString::number(part->indexOfStaff(s) + 1));
     }
-    
+
     w.startElement("music:beats");
     w.addTextNode(QString::number(ts->beats()));
     w.endElement(); // music:beats
-    
+
     w.startElement("music:beat-type");
     w.addTextNode(QString::number(ts->beat()));
     w.endElement(); // music:beat-type
-    
+
     w.endElement(); // music:time
 }
 
@@ -283,7 +283,7 @@ static void writePart(KoXmlWriter& w, int id, Part* part)
 
     for (int i = 0; i < part->sheet()->barCount(); i++) {
         Bar* bar = part->sheet()->bar(i);
-        
+
         w.startElement("music:measure");
         w.addAttribute("number", i+1);
 
@@ -300,7 +300,7 @@ static void writePart(KoXmlWriter& w, int id, Part* part)
             Staff* staff = part->staff(st);
             for (int e = 0; e < bar->staffElementCount(staff); e++) {
                 StaffElement* se = bar->staffElement(staff, e);
-                
+
                 KeySignature* ks = dynamic_cast<KeySignature*>(se);
                 if (ks) {
                     if (!inAttributes) {
@@ -315,7 +315,7 @@ static void writePart(KoXmlWriter& w, int id, Part* part)
             Staff* staff = part->staff(st);
             for (int e = 0; e < bar->staffElementCount(staff); e++) {
                 StaffElement* se = bar->staffElement(staff, e);
-                
+
                 TimeSignature* ts = dynamic_cast<TimeSignature*>(se);
                 if (ts) {
                     if (!inAttributes) {
@@ -331,13 +331,13 @@ static void writePart(KoXmlWriter& w, int id, Part* part)
             w.startElement("music:staves");
             w.addTextNode(QString::number(part->staffCount()));
             w.endElement(); // music:staves
-        }            
-            
+        }
+
         for (int st = 0; st < part->staffCount(); st++) {
             Staff* staff = part->staff(st);
             for (int e = 0; e < bar->staffElementCount(staff); e++) {
                 StaffElement* se = bar->staffElement(staff, e);
-                
+
                 Clef* c = dynamic_cast<Clef*>(se);
                 if (c) {
                     if (!inAttributes) {
@@ -370,7 +370,7 @@ static void writePart(KoXmlWriter& w, int id, Part* part)
                 curTime += ve->length();
 
                 Chord* c =  dynamic_cast<Chord*>(ve);
-                if(c) writeChord(w, c, v, part, i);
+                if (c) writeChord(w, c, v, part, i);
             }
         }
         w.endElement(); // music:measure

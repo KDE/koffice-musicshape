@@ -233,7 +233,7 @@ public:
 
     void setStaffSystemCount(int count);
     int staffSystemCount();
-    
+
     void updateAccidentals();
 signals:
     void partAdded(int index, MusicCore::Part* part);

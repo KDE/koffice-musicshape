@@ -62,7 +62,7 @@ public:
      */
     TimeSignatureType type() const;
     virtual int priority() const;
-    
+
     QList<int> beatLengths() const;
 public slots:
     /**

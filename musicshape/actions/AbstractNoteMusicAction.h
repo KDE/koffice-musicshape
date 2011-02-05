@@ -34,7 +34,7 @@ class AbstractNoteMusicAction : public AbstractMusicAction
 public:
     AbstractNoteMusicAction(const KIcon& icon, const QString& text, SimpleEntryTool* tool);
     AbstractNoteMusicAction(const QString& text, SimpleEntryTool* tool);
-    
+
     virtual void mousePress(MusicCore::Staff* staff, int bar, const QPointF& pos);
     virtual void mouseMove(MusicCore::Staff* staff, int bar, const QPointF& pos);
 
