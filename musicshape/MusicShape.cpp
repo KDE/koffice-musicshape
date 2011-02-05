@@ -97,29 +97,29 @@ MusicShape::~MusicShape()
 //    if (this == firstShape) firstShape = this->m_predecessor;
 }
 
-void MusicShape::setSize( const QSizeF &newSize )
+void MusicShape::setSize(const QSizeF &newSize)
 {
     KoShape::setSize(newSize);
 
     engrave(false);
 }
 
-void MusicShape::paint( QPainter& painter, const KoViewConverter& converter )
+void MusicShape::paint(QPainter& painter, const KoViewConverter& converter)
 {
-    constPaint( painter, converter );
+    constPaint(painter, converter);
 }
 
-void MusicShape::constPaint( QPainter& painter, const KoViewConverter& converter ) const
+void MusicShape::constPaint(QPainter& painter, const KoViewConverter& converter) const
 {
-    applyConversion( painter, converter );
+    applyConversion(painter, converter);
 
     painter.setClipping(true);
     painter.setClipRect(QRectF(0, 0, size().width(), size().height()));
 
-    m_renderer->renderSheet( painter, m_sheet, m_firstSystem, m_lastSystem );
+    m_renderer->renderSheet(painter, m_sheet, m_firstSystem, m_lastSystem);
 }
 
-void MusicShape::saveOdf( KoShapeSavingContext & context ) const
+void MusicShape::saveOdf(KoShapeSavingContext & context) const
 {
     KoXmlWriter& writer = context.xmlWriter();
     writer.startElement("draw:frame");
@@ -144,8 +144,8 @@ void MusicShape::saveOdf( KoShapeSavingContext & context ) const
     writer.startElement("draw:image");
     // In the spec, only the xlink:href attribute is marked as mandatory, cool :)
     QString name = context.imageHref(img);
-    writer.addAttribute("xlink:type", "simple" );
-    writer.addAttribute("xlink:show", "embed" );
+    writer.addAttribute("xlink:type", "simple");
+    writer.addAttribute("xlink:show", "embed");
     writer.addAttribute("xlink:actuate", "onLoad");
     writer.addAttribute("xlink:href", name);
     writer.endElement(); // draw:image
@@ -156,12 +156,12 @@ void MusicShape::saveOdf( KoShapeSavingContext & context ) const
     writer.endElement(); // draw:frame
 }
 
-bool MusicShape::loadOdf( const KoXmlElement & element, KoShapeLoadingContext &context ) {
+bool MusicShape::loadOdf(const KoXmlElement & element, KoShapeLoadingContext &context) {
     loadOdfAttributes(element, context, OdfAllAttributes);
     return loadOdfFrame(element, context);
 }
 
-bool MusicShape::loadOdfFrameElement( const KoXmlElement & element, KoShapeLoadingContext & /*context*/ )
+bool MusicShape::loadOdfFrameElement(const KoXmlElement & element, KoShapeLoadingContext & /*context*/)
 {
     KoXmlElement score = KoXml::namedItemNS(element, "http://www.koffice.org/music", "score-partwise");
     if (score.isNull()) {

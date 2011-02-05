@@ -212,7 +212,7 @@ int Chord::noteCount() const
 
 Note* Chord::note(int index) const
 {
-    Q_ASSERT( index >= 0 && index < noteCount() );
+    Q_ASSERT(index >= 0 && index < noteCount());
     return d->notes[index];
 }
 
@@ -225,7 +225,7 @@ Note* Chord::addNote(Staff* staff, int pitch, int accidentals)
 
 void Chord::addNote(Note* note)
 {
-    Q_ASSERT( note );
+    Q_ASSERT(note);
     note->setParent(this);
     if (!staff()) setStaff(note->staff());
     for (int i = 0; i < d->notes.size(); i++) {
@@ -239,7 +239,7 @@ void Chord::addNote(Note* note)
 
 void Chord::removeNote(int index, bool deleteNote)
 {
-    Q_ASSERT( index >= 0 && index < noteCount() );
+    Q_ASSERT(index >= 0 && index < noteCount());
     Note* n = d->notes.takeAt(index);
     if (deleteNote) {
         delete n;
@@ -248,9 +248,9 @@ void Chord::removeNote(int index, bool deleteNote)
 
 void Chord::removeNote(Note* note, bool deleteNote)
 {
-    Q_ASSERT( note );
+    Q_ASSERT(note);
     int index = d->notes.indexOf(note);
-    Q_ASSERT( index != -1 );
+    Q_ASSERT(index != -1);
     removeNote(index, deleteNote);
 }
 
@@ -409,8 +409,8 @@ qreal Chord::stemEndY(bool interpolateBeams) const
         }
     }
 
-    Q_ASSERT( topStaff );
-    Q_ASSERT( bottomStaff );
+    Q_ASSERT(topStaff);
+    Q_ASSERT(bottomStaff);
 
     if (stemDirection() == StemUp) {
         qreal pos = top - topStaff->lineSpacing() * stemLength();
@@ -535,7 +535,7 @@ BeamType Chord::beamType(int index) const
 
 void Chord::setBeam(int index, Chord* beamStart, Chord* beamEnd, BeamType type)
 {
-    Q_ASSERT( index < beamCount() );
+    Q_ASSERT(index < beamCount());
     while (d->beams.size() <= index) {
         d->beams.append(Beam(this));
     }

@@ -181,7 +181,7 @@ void MusicRenderer::renderVoice(QPainter& painter, Voice *voice, int firstBar, i
 
 void MusicRenderer::renderElement(QPainter& painter, VoiceElement* me, Voice* voice, const QPointF& pos, RenderState& state, const QColor& color)
 {
-    Q_UNUSED( state ); // unused for now, but will probably be used again in the future
+    Q_UNUSED(state); // unused for now, but will probably be used again in the future
 
     qreal top = 0;
     if (me->staff()) top += me->staff()->top();
@@ -246,7 +246,7 @@ void MusicRenderer::renderKeySignature(QPainter& painter, KeySignature* ks, cons
 
             while (line < 0) line += 7;
             while (line >= 6) line -= 7;
-            m_style->renderAccidental( painter, curx, pos.y() + s->top() + line * s->lineSpacing() / 2, 0 );
+            m_style->renderAccidental(painter, curx, pos.y() + s->top() + line * s->lineSpacing() / 2, 0);
 
             curx += 6;
         }
@@ -263,7 +263,7 @@ void MusicRenderer::renderKeySignature(QPainter& painter, KeySignature* ks, cons
             while (line < 0) line += 7;
             while (line >= 6) line -= 7;
 
-            m_style->renderAccidental( painter, curx, pos.y() + s->top() + line * s->lineSpacing() / 2, 0 );
+            m_style->renderAccidental(painter, curx, pos.y() + s->top() + line * s->lineSpacing() / 2, 0);
 
             curx += 6;
         }
@@ -279,7 +279,7 @@ void MusicRenderer::renderKeySignature(QPainter& painter, KeySignature* ks, cons
 
             while (line < 0) line += 7;
             while (line >= 6) line -= 7;
-            m_style->renderAccidental( painter, curx, pos.y() + s->top() + line * s->lineSpacing() / 2, 1 );
+            m_style->renderAccidental(painter, curx, pos.y() + s->top() + line * s->lineSpacing() / 2, 1);
 
             curx += 6;
         }
@@ -296,7 +296,7 @@ void MusicRenderer::renderKeySignature(QPainter& painter, KeySignature* ks, cons
             while (line < 0) line += 7;
             while (line >= 6) line -= 7;
 
-            m_style->renderAccidental( painter, curx, pos.y() + s->top() + line * s->lineSpacing() / 2, -1 );
+            m_style->renderAccidental(painter, curx, pos.y() + s->top() + line * s->lineSpacing() / 2, -1);
 
             curx += 6;
         }
@@ -309,8 +309,8 @@ void MusicRenderer::renderTimeSignature(QPainter& painter, TimeSignature* ts, co
     Q_UNUSED(color);
     Staff* s = ts->staff();
     qreal hh = 0.5 * (s->lineCount() - 1) * s->lineSpacing();
-    m_style->renderTimeSignatureNumber( painter, pos.x() + ts->x(), pos.y() + s->top() + hh, ts->width(), ts->beats());
-    m_style->renderTimeSignatureNumber( painter, pos.x() + ts->x(), pos.y() + s->top() + 2*hh, ts->width(), ts->beat());
+    m_style->renderTimeSignatureNumber(painter, pos.x() + ts->x(), pos.y() + s->top() + hh, ts->width(), ts->beats());
+    m_style->renderTimeSignatureNumber(painter, pos.x() + ts->x(), pos.y() + s->top() + 2*hh, ts->width(), ts->beat());
 }
 
 void MusicRenderer::renderRest(QPainter& painter, Duration duration, const QPointF& pos, const QColor& color)
@@ -393,11 +393,11 @@ void MusicRenderer::renderChord(QPainter& painter, Chord* chord, Voice* voice, c
             bottomStaff = s;
         }
 
-        m_style->renderNoteHead( painter, ref.x() + noteX, ref.y() + s->top() + line * s->lineSpacing() / 2, chord->duration(), color );
+        m_style->renderNoteHead(painter, ref.x() + noteX, ref.y() + s->top() + line * s->lineSpacing() / 2, chord->duration(), color);
 
         // render accidentals
         if (n->drawAccidentals()) {
-            m_style->renderAccidental( painter, ref.x() + x, ref.y() + /*chord->y() +*/ s->top() + line * s->lineSpacing() / 2, n->accidentals(), color );
+            m_style->renderAccidental(painter, ref.x() + x, ref.y() + /*chord->y() +*/ s->top() + line * s->lineSpacing() / 2, n->accidentals(), color);
         }
 
         dots.insert(s, line);
@@ -507,13 +507,13 @@ void MusicRenderer::renderChord(QPainter& painter, Chord* chord, Voice* voice, c
             painter.drawLine(ref + QPointF(stemX, chord->stemEndY()),
                              ref + QPointF(stemX, bottomStaff->top() + bottomLine * bottomStaff->lineSpacing() / 2));
             if (chord->beamType(0) == BeamFlag) {
-                m_style->renderNoteFlags( painter, ref.x() + stemX, ref.y() + chord->stemEndY(), chord->duration(), stemsUp, color );
+                m_style->renderNoteFlags(painter, ref.x() + stemX, ref.y() + chord->stemEndY(), chord->duration(), stemsUp, color);
             }
         } else {
             painter.drawLine(ref + QPointF(stemX, topStaff->top() + topLine * topStaff->lineSpacing() / 2),
                              ref + QPointF(stemX, chord->stemEndY()));
             if (chord->beamType(0) == BeamFlag) {
-                m_style->renderNoteFlags( painter, ref.x() + stemX, ref.y() + chord->stemEndY(), chord->duration(), stemsUp, color );
+                m_style->renderNoteFlags(painter, ref.x() + stemX, ref.y() + chord->stemEndY(), chord->duration(), stemsUp, color);
             }
         }
 
@@ -581,5 +581,5 @@ void MusicRenderer::renderNote(QPainter& painter, Duration duration, const QPoin
 
 void MusicRenderer::renderAccidental(QPainter& painter, int accidentals, const QPointF& pos, const QColor& color)
 {
-    m_style->renderAccidental( painter, pos.x(), pos.y(), accidentals, color );
+    m_style->renderAccidental(painter, pos.x(), pos.y(), accidentals, color);
 }

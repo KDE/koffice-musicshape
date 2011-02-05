@@ -77,8 +77,8 @@
 
 using namespace MusicCore;
 
-SimpleEntryTool::SimpleEntryTool( KoCanvasBase* canvas )
-    : KoToolBase( canvas ),
+SimpleEntryTool::SimpleEntryTool(KoCanvasBase* canvas)
+    : KoToolBase(canvas),
     m_musicshape(0),
     m_voice(0),
     m_selectionStart(-1),
@@ -314,15 +314,15 @@ void SimpleEntryTool::activate(ToolActivation toolActivation, const QSet<KoShape
 {
     Q_UNUSED(toolActivation);
     foreach (KoShape *shape, shapes) {
-        m_musicshape = dynamic_cast<MusicShape*>( shape );
-        if ( m_musicshape )
+        m_musicshape = dynamic_cast<MusicShape*>(shape);
+        if (m_musicshape)
         {
             //TODO get the cursor that was used the last time for that sheet from some map
             m_cursor = new MusicCursor(m_musicshape->sheet(), m_musicshape->sheet());
             break;
         }
     }
-    if ( !m_musicshape )
+    if (!m_musicshape)
     {
         emit done();
         return;
@@ -337,7 +337,7 @@ void SimpleEntryTool::deactivate()
     m_cursor = 0;
 }
 
-void SimpleEntryTool::paint( QPainter& painter, const KoViewConverter& viewConverter )
+void SimpleEntryTool::paint(QPainter& painter, const KoViewConverter& viewConverter)
 {
     Sheet* sheet = m_musicshape->sheet();
     int firstSystem = m_musicshape->firstSystem();
@@ -358,7 +358,7 @@ void SimpleEntryTool::paint( QPainter& painter, const KoViewConverter& viewConve
         while (shape) {
             painter.save();
             painter.setTransform(shape->absoluteTransformation(&viewConverter) * painter.transform());
-            KoShape::applyConversion( painter, viewConverter );
+            KoShape::applyConversion(painter, viewConverter);
             painter.setClipRect(QRectF(QPointF(0, 0), shape->size()));
 
             for (int b = qMax(shape->firstBar(), m_selectionStart); b <= m_selectionEnd && b < sheet->barCount() && b <= shape->lastBar(); b++) {
@@ -394,7 +394,7 @@ void SimpleEntryTool::paint( QPainter& painter, const KoViewConverter& viewConve
     }
 
     painter.setTransform(m_musicshape->absoluteTransformation(&viewConverter) * painter.transform());
-    KoShape::applyConversion( painter, viewConverter );
+    KoShape::applyConversion(painter, viewConverter);
     painter.setClipRect(QRectF(QPointF(0, 0), m_musicshape->size()));
 
     if (m_activeAction->isVoiceAware()) {
@@ -414,7 +414,7 @@ void SimpleEntryTool::paint( QPainter& painter, const KoViewConverter& viewConve
     m_activeAction->renderPreview(painter, m_point);
 }
 
-void SimpleEntryTool::mousePressEvent( KoPointerEvent* event )
+void SimpleEntryTool::mousePressEvent(KoPointerEvent* event)
 {
     if (!m_musicshape->boundingRect().contains(event->point)) {
         QRectF area(event->point, QSizeF(1,1));
@@ -521,7 +521,7 @@ void SimpleEntryTool::mousePressEvent( KoPointerEvent* event )
     }
 }
 
-void SimpleEntryTool::mouseMoveEvent( KoPointerEvent* event )
+void SimpleEntryTool::mouseMoveEvent(KoPointerEvent* event)
 {
     if (!m_musicshape->boundingRect().contains(event->point)) {
         QRectF area(event->point, QSizeF(1,1));
@@ -618,11 +618,11 @@ void SimpleEntryTool::mouseMoveEvent( KoPointerEvent* event )
     }
 }
 
-void SimpleEntryTool::mouseReleaseEvent( KoPointerEvent* )
+void SimpleEntryTool::mouseReleaseEvent(KoPointerEvent*)
 {
 }
 
-void SimpleEntryTool::keyPressEvent( QKeyEvent *event )
+void SimpleEntryTool::keyPressEvent(QKeyEvent *event)
 {
     event->ignore();
     m_activeAction->keyPress(event, *m_cursor);

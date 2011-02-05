@@ -30,7 +30,7 @@ class MusicShapePlugin : public QObject
 
 public:
 
-    MusicShapePlugin( QObject * parent,  const QVariantList& );
+    MusicShapePlugin(QObject * parent,  const QVariantList&);
     ~MusicShapePlugin() {}
 
 };
@@ -38,7 +38,7 @@ public:
 class MusicShapeFactory : public KoShapeFactoryBase
 {
 public:
-    MusicShapeFactory( QObject* parent );
+    MusicShapeFactory(QObject* parent);
     ~MusicShapeFactory() {}
 
     virtual KoShape *createDefaultShape(KoResourceManager *documentResources = 0) const;

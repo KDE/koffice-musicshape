@@ -25,10 +25,10 @@
 class SimpleEntryToolFactory : public KoToolFactoryBase
 {
 public:
-    SimpleEntryToolFactory( QObject* parent );
+    SimpleEntryToolFactory(QObject* parent);
     ~SimpleEntryToolFactory();
 
-    KoToolBase* createTool( KoCanvasBase* canvas );
+    KoToolBase* createTool(KoCanvasBase* canvas);
 };
 
 

@@ -42,7 +42,7 @@ private:
     TimeSignature* loadTimeSignature(const KoXmlElement& element, Staff* staff);
     void loadPart(const KoXmlElement& partElement, Part* part);
 
-    KoXmlElement namedItem( const KoXmlNode& node, const char* localName );
+    KoXmlElement namedItem(const KoXmlNode& node, const char* localName);
     bool checkNamespace(const KoXmlNode& node);
 };
 

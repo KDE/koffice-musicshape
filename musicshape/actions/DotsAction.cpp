@@ -49,8 +49,8 @@ DotsAction::DotsAction(SimpleEntryTool* tool)
 
 void DotsAction::mousePress(Chord* chord, Note* note, qreal distance, const QPointF& pos)
 {
-    Q_UNUSED( note );
-    Q_UNUSED( pos );
+    Q_UNUSED(note);
+    Q_UNUSED(pos);
 
     if (!chord) return;
     if (distance > 10) return; // bah, magic numbers are ugly....

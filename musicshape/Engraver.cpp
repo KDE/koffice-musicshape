@@ -317,7 +317,7 @@ void Engraver::engraveBar(Bar* bar, qreal sizeFactor)
         qreal scaleFactor = (qreal) sim.duration / sim.minChordDuration; // 'e' in the formula
         if (scaleFactor > 1) scaleFactor = 1;
         qreal duration = (qreal) sim.duration / WholeLength;
-        sim.space = scaleFactor * ( log2(duration) + baseFactor );
+        sim.space = scaleFactor * (log2(duration) + baseFactor);
     }
 
     // give voice elements positions according to space assigned

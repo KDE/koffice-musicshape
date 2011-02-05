@@ -57,7 +57,7 @@ int PartGroup::firstPart() const
 
 void PartGroup::setFirstPart(int index)
 {
-    Q_ASSERT( index >= 0 && index < sheet()->partCount() );
+    Q_ASSERT(index >= 0 && index < sheet()->partCount());
     if (d->firstPart == index) return;
     d->firstPart = index;
     emit firstPartChanged(index);
@@ -70,7 +70,7 @@ int PartGroup::lastPart() const
 
 void PartGroup::setLastPart(int index)
 {
-    Q_ASSERT( index >= 0 && index < sheet()->partCount() );
+    Q_ASSERT(index >= 0 && index < sheet()->partCount());
     if (d->lastPart == index) return;
     d->lastPart = index;
     emit lastPartChanged(index);

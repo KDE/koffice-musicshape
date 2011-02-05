@@ -40,8 +40,8 @@ AbstractMusicAction::AbstractMusicAction(const QString& text, SimpleEntryTool* t
 
 void AbstractMusicAction::renderPreview(QPainter& painter, const QPointF& point)
 {
-    Q_UNUSED( painter );
-    Q_UNUSED( point );
+    Q_UNUSED(painter);
+    Q_UNUSED(point);
 }
 
 bool AbstractMusicAction::isVoiceAware()

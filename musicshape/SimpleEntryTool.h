@@ -40,16 +40,16 @@ class SimpleEntryTool : public KoToolBase
 {
     Q_OBJECT
 public:
-    explicit SimpleEntryTool( KoCanvasBase* canvas );
+    explicit SimpleEntryTool(KoCanvasBase* canvas);
     ~SimpleEntryTool();
 
-    virtual void paint( QPainter& painter, const KoViewConverter& converter );
+    virtual void paint(QPainter& painter, const KoViewConverter& converter);
 
-    virtual void mousePressEvent( KoPointerEvent* event ) ;
-    virtual void mouseMoveEvent( KoPointerEvent* event );
-    virtual void mouseReleaseEvent( KoPointerEvent* event );
+    virtual void mousePressEvent(KoPointerEvent* event) ;
+    virtual void mouseMoveEvent(KoPointerEvent* event);
+    virtual void mouseReleaseEvent(KoPointerEvent* event);
 
-    virtual void keyPressEvent( QKeyEvent *event );
+    virtual void keyPressEvent(QKeyEvent *event);
 
     virtual void activate(ToolActivation toolActivation, const QSet<KoShape*> &shapes);
     void deactivate();

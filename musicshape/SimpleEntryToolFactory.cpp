@@ -24,21 +24,21 @@
 #include "SimpleEntryToolFactory.h"
 
 
-SimpleEntryToolFactory::SimpleEntryToolFactory( QObject* parent )
+SimpleEntryToolFactory::SimpleEntryToolFactory(QObject* parent)
     : KoToolFactoryBase(parent, "SimpleEntryToolFactoryId")
 {
-    setToolTip( i18n( "Music editing tool" ) );
-    setIcon( "music-note-16th" );
-    setToolType( dynamicToolType() );
-    setPriority( 1 );
-    setActivationShapeId( MusicShapeId );
+    setToolTip(i18n("Music editing tool"));
+    setIcon("music-note-16th");
+    setToolType(dynamicToolType());
+    setPriority(1);
+    setActivationShapeId(MusicShapeId);
 }
 
 SimpleEntryToolFactory::~SimpleEntryToolFactory()
 {
 }
 
-KoToolBase* SimpleEntryToolFactory::createTool( KoCanvasBase* canvas )
+KoToolBase* SimpleEntryToolFactory::createTool(KoCanvasBase* canvas)
 {
-    return new SimpleEntryTool( canvas );
+    return new SimpleEntryTool(canvas);
 }

@@ -52,7 +52,7 @@ int Sheet::partCount() const
 
 Part* Sheet::part(int index)
 {
-    Q_ASSERT( index >= 0 && index < partCount() );
+    Q_ASSERT(index >= 0 && index < partCount());
     return d->parts[index];
 }
 
@@ -71,7 +71,7 @@ Part* Sheet::addPart(const QString& name)
 
 void Sheet::addPart(Part* part)
 {
-    Q_ASSERT( part );
+    Q_ASSERT(part);
     part->setParent(this);
     d->parts.append(part);
     emit partAdded(d->parts.size(), part);
@@ -79,7 +79,7 @@ void Sheet::addPart(Part* part)
 
 Part* Sheet::insertPart(int before, const QString& name)
 {
-    Q_ASSERT( before >= 0 && before <= partCount() );
+    Q_ASSERT(before >= 0 && before <= partCount());
     Part* part = new Part(this, name);
     d->parts.insert(before, part);
     emit partAdded(before, part);
@@ -88,8 +88,8 @@ Part* Sheet::insertPart(int before, const QString& name)
 
 void Sheet::insertPart(int before, Part* part)
 {
-    Q_ASSERT( before >= 0 && before <= partCount() );
-    Q_ASSERT( part );
+    Q_ASSERT(before >= 0 && before <= partCount());
+    Q_ASSERT(part);
     part->setParent(this);
     d->parts.insert(before, part);
     emit partAdded(before, part);
@@ -97,7 +97,7 @@ void Sheet::insertPart(int before, Part* part)
 
 void Sheet::removePart(int index, bool deletePart)
 {
-    Q_ASSERT( index >= 0 && index < partCount() );
+    Q_ASSERT(index >= 0 && index < partCount());
     Part* part = d->parts.takeAt(index);
     emit partRemoved(index, part);
     if (deletePart) {
@@ -107,9 +107,9 @@ void Sheet::removePart(int index, bool deletePart)
 
 void Sheet::removePart(Part* part, bool deletePart)
 {
-    Q_ASSERT( part && part->sheet() == this);
+    Q_ASSERT(part && part->sheet() == this);
     int index = d->parts.indexOf(part);
-    Q_ASSERT( index != -1 );
+    Q_ASSERT(index != -1);
     removePart(index, deletePart);
 }
 
@@ -120,14 +120,14 @@ int Sheet::partGroupCount() const
 
 PartGroup* Sheet::partGroup(int index)
 {
-    Q_ASSERT( index >= 0 && index < partGroupCount() );
+    Q_ASSERT(index >= 0 && index < partGroupCount());
     return d->partGroups[index];
 }
 
 PartGroup* Sheet::addPartGroup(int firstPart, int lastPart)
 {
-    Q_ASSERT( firstPart >= 0 && firstPart < partCount() );
-    Q_ASSERT( lastPart >= 0 && lastPart < partCount() );
+    Q_ASSERT(firstPart >= 0 && firstPart < partCount());
+    Q_ASSERT(lastPart >= 0 && lastPart < partCount());
     PartGroup *group = new PartGroup(this, firstPart, lastPart);
     d->partGroups.append(group);
     return group;
@@ -135,9 +135,9 @@ PartGroup* Sheet::addPartGroup(int firstPart, int lastPart)
 
 void Sheet::removePartGroup(PartGroup* group, bool deleteGroup)
 {
-    Q_ASSERT( group && group->sheet() == this );
+    Q_ASSERT(group && group->sheet() == this);
     int index = d->partGroups.indexOf(group);
-    Q_ASSERT( index != -1 );
+    Q_ASSERT(index != -1);
     d->partGroups.removeAt(index);
     if (deleteGroup) {
         delete group;
@@ -151,13 +151,13 @@ int Sheet::barCount() const
 
 Bar* Sheet::bar(int index)
 {
-    Q_ASSERT( index >= 0 && index < barCount() );
+    Q_ASSERT(index >= 0 && index < barCount());
     return d->bars[index];
 }
 
 int Sheet::indexOfBar(Bar* bar)
 {
-    Q_ASSERT( bar );
+    Q_ASSERT(bar);
     return d->bars.indexOf(bar);
 }
 
@@ -177,7 +177,7 @@ Bar* Sheet::addBar()
 
 Bar* Sheet::insertBar(int before)
 {
-    Q_ASSERT( before >= 0 && before <= barCount() );
+    Q_ASSERT(before >= 0 && before <= barCount());
     Bar* bar = new Bar(this);
     d->bars.insert(before, bar);
     return bar;
@@ -185,13 +185,13 @@ Bar* Sheet::insertBar(int before)
 
 void Sheet::insertBar(int before, Bar* bar)
 {
-    Q_ASSERT( before >= 0 && before <= barCount() );
+    Q_ASSERT(before >= 0 && before <= barCount());
     d->bars.insert(before, bar);
 }
 
 void Sheet::removeBar(int index, bool deleteBar)
 {
-    Q_ASSERT( index >= 0 && index < barCount() );
+    Q_ASSERT(index >= 0 && index < barCount());
     Bar* bar = d->bars.takeAt(index);
     if (deleteBar) {
         delete bar;
@@ -200,7 +200,7 @@ void Sheet::removeBar(int index, bool deleteBar)
 
 void Sheet::removeBars(int index, int count, bool deleteBar)
 {
-    Q_ASSERT( index >= 0 && count > 0 && index + count <= barCount() );
+    Q_ASSERT(index >= 0 && count > 0 && index + count <= barCount());
     for (int i = 0; i < count; i++) {
         Bar* b = d->bars.takeAt(index);
         if (deleteBar) {
@@ -211,7 +211,7 @@ void Sheet::removeBars(int index, int count, bool deleteBar)
 
 StaffSystem* Sheet::staffSystem(int index)
 {
-    Q_ASSERT( index >= 0 );
+    Q_ASSERT(index >= 0);
     int idx = d->staffSystems.size();
     qreal ssHeight = 0;
     if (partCount() > 0) {
@@ -233,7 +233,7 @@ StaffSystem* Sheet::staffSystem(int index)
 
 void Sheet::setStaffSystemCount(int count)
 {
-    Q_ASSERT( count >= 0 );
+    Q_ASSERT(count >= 0);
     while (count < d->staffSystems.size()) {
         d->staffSystems.removeLast();
     }

@@ -66,7 +66,7 @@ Staff* StaffElementPreviewWidget::staff()
 
 void StaffElementPreviewWidget::paintEvent(QPaintEvent * event)
 {
-    Q_UNUSED( event );
+    Q_UNUSED(event);
     QPainter painter(this);
     painter.fillRect(rect(), QBrush(Qt::white));
     if (!m_style) return;

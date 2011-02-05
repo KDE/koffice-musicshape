@@ -84,7 +84,7 @@ int Part::staffCount() const
 
 Staff* Part::staff(int index)
 {
-    Q_ASSERT( index >= 0 && index < staffCount() );
+    Q_ASSERT(index >= 0 && index < staffCount());
     return d->staves[index];
 }
 
@@ -97,13 +97,13 @@ Staff* Part::addStaff()
 
 void Part::addStaff(Staff* staff)
 {
-    Q_ASSERT( staff );
+    Q_ASSERT(staff);
     d->staves.append(staff);
 }
 
 Staff* Part::insertStaff(int before)
 {
-    Q_ASSERT( before >= 0 && before <= staffCount() );
+    Q_ASSERT(before >= 0 && before <= staffCount());
     Staff* staff = new Staff(this);
     d->staves.insert(before, staff);
     return staff;
@@ -129,7 +129,7 @@ int Part::voiceCount() const
 
 Voice* Part::voice(int index)
 {
-    Q_ASSERT( index >= 0 && index < voiceCount() );
+    Q_ASSERT(index >= 0 && index < voiceCount());
     return d->voices[index];
 }
 

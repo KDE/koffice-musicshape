@@ -258,8 +258,8 @@ void Staff::updateAccidentals(int fromBar)
 
 void Staff::updateAccidentals(Bar* fromBar)
 {
-    Q_ASSERT( fromBar );
-    updateAccidentals( part()->sheet()->indexOfBar(fromBar) );
+    Q_ASSERT(fromBar);
+    updateAccidentals(part()->sheet()->indexOfBar(fromBar));
 }
 
 } // namespace MusicCore

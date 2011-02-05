@@ -48,8 +48,8 @@ TiedNoteAction::TiedNoteAction(SimpleEntryTool* tool)
 
 void TiedNoteAction::mousePress(Chord* chord, Note* note, qreal distance, const QPointF& pos)
 {
-    Q_UNUSED( chord );
-    Q_UNUSED( pos );
+    Q_UNUSED(chord);
+    Q_UNUSED(pos);
 
     if (!note) return;
     if (distance > 15) return; // bah, magic numbers are ugly....

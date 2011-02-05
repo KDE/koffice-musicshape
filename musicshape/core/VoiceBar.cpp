@@ -36,7 +36,7 @@ public:
 
 VoiceBar::VoiceBar(Bar* bar) : QObject(bar), d(new Private)
 {
-    Q_ASSERT( bar );
+    Q_ASSERT(bar);
 }
 
 VoiceBar::~VoiceBar()
@@ -57,19 +57,19 @@ int VoiceBar::elementCount() const
 
 VoiceElement* VoiceBar::element(int index)
 {
-    Q_ASSERT( index >= 0 && index < elementCount() );
+    Q_ASSERT(index >= 0 && index < elementCount());
     return d->elements[index];
 }
 
 int VoiceBar::indexOfElement(VoiceElement* element)
 {
-    Q_ASSERT( element );
+    Q_ASSERT(element);
     return d->elements.indexOf(element);
 }
 
 void VoiceBar::addElement(VoiceElement* element)
 {
-    Q_ASSERT( element );
+    Q_ASSERT(element);
     d->elements.append(element);
     element->setVoiceBar(this);
     updateAccidentals();
@@ -77,8 +77,8 @@ void VoiceBar::addElement(VoiceElement* element)
 
 void VoiceBar::insertElement(VoiceElement* element, int before)
 {
-    Q_ASSERT( element );
-    Q_ASSERT( before >= 0 && before <= elementCount() );
+    Q_ASSERT(element);
+    Q_ASSERT(before >= 0 && before <= elementCount());
     d->elements.insert(before, element);
     element->setVoiceBar(this);
     updateAccidentals();
@@ -86,16 +86,16 @@ void VoiceBar::insertElement(VoiceElement* element, int before)
 
 void VoiceBar::insertElement(VoiceElement* element, VoiceElement* before)
 {
-    Q_ASSERT( element );
-    Q_ASSERT( before );
+    Q_ASSERT(element);
+    Q_ASSERT(before);
     int index = d->elements.indexOf(before);
-    Q_ASSERT( index != -1 );
+    Q_ASSERT(index != -1);
     insertElement(element, index);
 }
 
 void VoiceBar::removeElement(int index, bool deleteElement)
 {
-    Q_ASSERT( index >= 0 && index < elementCount() );
+    Q_ASSERT(index >= 0 && index < elementCount());
     VoiceElement* e = d->elements.takeAt(index);
     if (deleteElement) {
         delete e;
@@ -105,9 +105,9 @@ void VoiceBar::removeElement(int index, bool deleteElement)
 
 void VoiceBar::removeElement(VoiceElement* element, bool deleteElement)
 {
-    Q_ASSERT( element );
+    Q_ASSERT(element);
     int index = d->elements.indexOf(element);
-    Q_ASSERT( index != -1 );
+    Q_ASSERT(index != -1);
     removeElement(index, deleteElement);
 }
 

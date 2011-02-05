@@ -35,24 +35,24 @@
 #include "MusicShapeFactory.h"
 
 K_PLUGIN_FACTORY(MusicShapePluginFactory, registerPlugin<MusicShapePlugin>();)
-K_EXPORT_PLUGIN(MusicShapePluginFactory( "MusicShape" ))
+K_EXPORT_PLUGIN(MusicShapePluginFactory("MusicShape"))
 
-MusicShapePlugin::MusicShapePlugin( QObject * parent,  const QVariantList& )
+MusicShapePlugin::MusicShapePlugin(QObject * parent,  const QVariantList&)
 {
-    KoShapeRegistry::instance()->add( new MusicShapeFactory( parent ) );
-    KoToolRegistry::instance()->add( new MusicToolFactory( parent ) );
-    KoToolRegistry::instance()->add( new SimpleEntryToolFactory( parent ) );
+    KoShapeRegistry::instance()->add(new MusicShapeFactory(parent));
+    KoToolRegistry::instance()->add(new MusicToolFactory(parent));
+    KoToolRegistry::instance()->add(new SimpleEntryToolFactory(parent));
 }
 
 
-MusicShapeFactory::MusicShapeFactory( QObject* parent )
-    : KoShapeFactoryBase( parent, MusicShapeId, i18n( "Music Shape" ) )
+MusicShapeFactory::MusicShapeFactory(QObject* parent)
+    : KoShapeFactoryBase(parent, MusicShapeId, i18n("Music Shape"))
 {
-    setToolTip( i18n( "A shape which provides a music editor" ) );
-    ///@todo setIcon( "musicflake" );
-    setIcon( "music-note-16th" );
-    setOdfElementNames( "http://www.koffice.org/music", QStringList("shape") );
-    setLoadingPriority( 1 );
+    setToolTip(i18n("A shape which provides a music editor"));
+    ///@todo setIcon("musicflake");
+    setIcon("music-note-16th");
+    setOdfElementNames("http://www.koffice.org/music", QStringList("shape"));
+    setLoadingPriority(1);
 }
 
 KoShape *MusicShapeFactory::createDefaultShape(KoResourceManager *) const
@@ -74,7 +74,7 @@ KoShape *MusicShapeFactory::createDefaultShape(KoResourceManager *) const
 bool MusicShapeFactory::supports(const KoXmlElement & e, KoShapeLoadingContext &context) const
 {
     Q_UNUSED(context);
-    return ( e.localName() == "shape" ) && ( e.namespaceURI() == "http://www.koffice.org/music" );
+    return (e.localName() == "shape") && (e.namespaceURI() == "http://www.koffice.org/music");
 }
 
 #include <MusicShapeFactory.moc>

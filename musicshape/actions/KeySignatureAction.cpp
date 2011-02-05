@@ -67,7 +67,7 @@ KeySignatureAction::KeySignatureAction(SimpleEntryTool* tool)
 
 void KeySignatureAction::mousePress(Staff* staff, int barIdx, const QPointF& pos)
 {
-    Q_UNUSED( pos );
+    Q_UNUSED(pos);
 
     if (m_showDialog) {
         KeySignatureDialog dlg;

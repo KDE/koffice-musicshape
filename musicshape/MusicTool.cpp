@@ -34,8 +34,8 @@
 
 #include "dialogs/PartsWidget.h"
 
-MusicTool::MusicTool( KoCanvasBase* canvas )
-    : KoToolBase( canvas ),
+MusicTool::MusicTool(KoCanvasBase* canvas)
+    : KoToolBase(canvas),
       m_musicshape(0)
 {
 }
@@ -50,11 +50,11 @@ void MusicTool::activate(ToolActivation toolActivation, const QSet<KoShape*> &sh
     //kDebug() ;
 
     foreach (KoShape *shape, shapes) {
-        m_musicshape = dynamic_cast<MusicShape*>( shape );
-        if ( m_musicshape )
+        m_musicshape = dynamic_cast<MusicShape*>(shape);
+        if (m_musicshape)
             break;
     }
-    if ( !m_musicshape )
+    if (!m_musicshape)
     {
         emit done();
         return;
@@ -69,21 +69,21 @@ void MusicTool::deactivate()
   m_musicshape = 0;
 }
 
-void MusicTool::paint( QPainter& painter, const KoViewConverter& viewConverter )
+void MusicTool::paint(QPainter& painter, const KoViewConverter& viewConverter)
 {
-    Q_UNUSED( painter );
-    Q_UNUSED( viewConverter );
+    Q_UNUSED(painter);
+    Q_UNUSED(viewConverter);
 }
 
-void MusicTool::mousePressEvent( KoPointerEvent* )
-{
-}
-
-void MusicTool::mouseMoveEvent( KoPointerEvent* )
+void MusicTool::mousePressEvent(KoPointerEvent*)
 {
 }
 
-void MusicTool::mouseReleaseEvent( KoPointerEvent* )
+void MusicTool::mouseMoveEvent(KoPointerEvent*)
+{
+}
+
+void MusicTool::mouseReleaseEvent(KoPointerEvent*)
 {
 }
 

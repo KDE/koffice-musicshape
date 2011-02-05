@@ -71,7 +71,7 @@ int TimeSignature::beat() const
 void TimeSignature::setBeat(int beat)
 {
     if (d->beat == beat) return;
-    Q_ASSERT( (beat & (beat-1)) == 0 );
+    Q_ASSERT((beat & (beat-1)) == 0);
     d->beat = beat;
     int beatsLen = QString::number(d->beats).length();
     int beatLen = QString::number(d->beat).length();

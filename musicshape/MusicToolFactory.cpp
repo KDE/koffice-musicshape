@@ -24,21 +24,21 @@
 #include "MusicToolFactory.h"
 
 
-MusicToolFactory::MusicToolFactory( QObject* parent )
+MusicToolFactory::MusicToolFactory(QObject* parent)
     : KoToolFactoryBase(parent, "MusicToolFactoryId")
 {
-    setToolTip( i18n( "Music editing tool, parts" ) );
-    setIcon( "musicshape" );
-    setToolType( dynamicToolType() );
-    setPriority( 2 );
-    setActivationShapeId( MusicShapeId );
+    setToolTip(i18n("Music editing tool, parts"));
+    setIcon("musicshape");
+    setToolType(dynamicToolType());
+    setPriority(2);
+    setActivationShapeId(MusicShapeId);
 }
 
 MusicToolFactory::~MusicToolFactory()
 {
 }
 
-KoToolBase* MusicToolFactory::createTool( KoCanvasBase* canvas )
+KoToolBase* MusicToolFactory::createTool(KoCanvasBase* canvas)
 {
-    return new MusicTool( canvas );
+    return new MusicTool(canvas);
 }

@@ -121,7 +121,7 @@ void Bar::setPrefixPosition(const QPointF& position)
 
 int Bar::staffElementCount(Staff* staff) const
 {
-    Q_ASSERT( staff );
+    Q_ASSERT(staff);
     int cnt = 0;
     foreach (StaffElement* e, d->staffElements) {
         if (e->staff() == staff) {
@@ -133,7 +133,7 @@ int Bar::staffElementCount(Staff* staff) const
 
 StaffElement* Bar::staffElement(Staff* staff, int index)
 {
-    Q_ASSERT( staff );
+    Q_ASSERT(staff);
     int cnt = 0;
     foreach (StaffElement* e, d->staffElements) {
         if (e->staff() == staff) {
@@ -141,19 +141,19 @@ StaffElement* Bar::staffElement(Staff* staff, int index)
             cnt++;
         }
     }
-    Q_ASSERT( false );
+    Q_ASSERT(false);
     return 0;
 }
 
 int Bar::indexOfStaffElement(StaffElement* element)
 {
-    Q_ASSERT( element );
+    Q_ASSERT(element);
     return d->staffElements.indexOf(element);
 }
 
 void Bar::addStaffElement(StaffElement* element, int index)
 {
-    Q_ASSERT( element );
+    Q_ASSERT(element);
     element->setBar(this);
     if (index >= 0) {
         bool correct = true;
@@ -184,9 +184,9 @@ void Bar::addStaffElement(StaffElement* element, int index)
 
 void Bar::removeStaffElement(StaffElement* element, bool deleteElement)
 {
-    Q_ASSERT( element );
+    Q_ASSERT(element);
     int index = d->staffElements.indexOf(element);
-    Q_ASSERT( index != -1 );
+    Q_ASSERT(index != -1);
     d->staffElements.removeAt(index);
     if (deleteElement) {
         delete element;
