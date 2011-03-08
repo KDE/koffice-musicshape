@@ -60,7 +60,7 @@ void MusicTool::activate(ToolActivation toolActivation, const QSet<KoShape*> &sh
         return;
     }
     emit shapeChanged(m_musicshape);
-    useCursor(Qt::ArrowCursor);
+    setCursor(Qt::ArrowCursor);
 }
 
 void MusicTool::deactivate()
