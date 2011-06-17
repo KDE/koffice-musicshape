@@ -32,7 +32,6 @@
 #include "Staff.h"
 
 #include <KXmlWriter.h>
-#include <kofficeversion.h>
 
 #include <kdebug.h>
 
