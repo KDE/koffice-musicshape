@@ -25,7 +25,7 @@
 
 
 MusicToolFactory::MusicToolFactory(QObject* parent)
-    : KoToolFactoryBase(parent, "MusicToolFactoryId")
+    : KToolFactoryBase(parent, "MusicToolFactoryId")
 {
     setToolTip(i18n("Music editing tool, parts"));
     setIcon("musicshape");
@@ -38,7 +38,7 @@ MusicToolFactory::~MusicToolFactory()
 {
 }
 
-KoToolBase* MusicToolFactory::createTool(KoCanvasBase* canvas)
+KToolBase* MusicToolFactory::createTool(KCanvasBase* canvas)
 {
     return new MusicTool(canvas);
 }

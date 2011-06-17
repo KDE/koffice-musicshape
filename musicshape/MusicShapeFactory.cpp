@@ -23,10 +23,10 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
-#include <KoProperties.h>
-#include <KoToolRegistry.h>
-#include <KoShapeRegistry.h>
-#include <KoShapeLoadingContext.h>
+#include <KProperties.h>
+#include <KToolRegistry.h>
+#include <KShapeRegistry.h>
+#include <KShapeLoadingContext.h>
 
 #include "MusicShape.h"
 #include "MusicToolFactory.h"
@@ -39,14 +39,14 @@ K_EXPORT_PLUGIN(MusicShapePluginFactory("MusicShape"))
 
 MusicShapePlugin::MusicShapePlugin(QObject * parent,  const QVariantList&)
 {
-    KoShapeRegistry::instance()->add(new MusicShapeFactory(parent));
-    KoToolRegistry::instance()->add(new MusicToolFactory(parent));
-    KoToolRegistry::instance()->add(new SimpleEntryToolFactory(parent));
+    KShapeRegistry::instance()->add(new MusicShapeFactory(parent));
+    KToolRegistry::instance()->add(new MusicToolFactory(parent));
+    KToolRegistry::instance()->add(new SimpleEntryToolFactory(parent));
 }
 
 
 MusicShapeFactory::MusicShapeFactory(QObject* parent)
-    : KoShapeFactoryBase(parent, MusicShapeId, i18n("Music Shape"))
+    : KShapeFactoryBase(parent, MusicShapeId, i18n("Music Shape"))
 {
     setToolTip(i18n("A shape which provides a music editor"));
     ///@todo setIcon("musicflake");
@@ -55,7 +55,7 @@ MusicShapeFactory::MusicShapeFactory(QObject* parent)
     setLoadingPriority(1);
 }
 
-KoShape *MusicShapeFactory::createDefaultShape(KoResourceManager *) const
+KShape *MusicShapeFactory::createDefaultShape(KResourceManager *) const
 {
     static bool loadedFont = false;
     if (!loadedFont) {
@@ -71,7 +71,7 @@ KoShape *MusicShapeFactory::createDefaultShape(KoResourceManager *) const
     return shape;
 }
 
-bool MusicShapeFactory::supports(const KoXmlElement & e, KoShapeLoadingContext &context) const
+bool MusicShapeFactory::supports(const KXmlElement & e, KShapeLoadingContext &context) const
 {
     Q_UNUSED(context);
     return (e.localName() == "shape") && (e.namespaceURI() == "http://www.koffice.org/music");

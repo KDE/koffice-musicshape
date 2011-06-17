@@ -28,7 +28,7 @@
 #include "TimeSignature.h"
 #include "Note.h"
 
-#include <KoXmlReader.h>
+#include <KXmlReader.h>
 
 #include <kdebug.h>
 
@@ -70,18 +70,18 @@ static Duration parseDuration(const QString& type, int length, int div)
     else                                            return BreveNote;
 }
 
-Sheet* MusicXmlReader::loadSheet(const KoXmlElement& scoreElement)
+Sheet* MusicXmlReader::loadSheet(const KXmlElement& scoreElement)
 {
     Sheet* sheet = new Sheet();
 
     QHash<QString, Part*> parts;
 
-    KoXmlElement partList = namedItem(scoreElement, "part-list");
+    KXmlElement partList = namedItem(scoreElement, "part-list");
     if (partList.isNull()) {
         //kDebug() << "no part list found";
         return 0;
     }
-    KoXmlElement elem;
+    KXmlElement elem;
     forEachElement(elem, partList) {
         if (checkNamespace(elem) && elem.localName() == "score-part") {
             QString id = elem.attribute("id");
@@ -107,13 +107,13 @@ Sheet* MusicXmlReader::loadSheet(const KoXmlElement& scoreElement)
 }
 
 
-QString MusicXmlReader::getProperty(const KoXmlElement& elem, const char *propName)
+QString MusicXmlReader::getProperty(const KXmlElement& elem, const char *propName)
 {
-    KoXmlElement propElem = namedItem(elem, propName);
+    KXmlElement propElem = namedItem(elem, propName);
     return propElem.text();
 }
 
-KoXmlElement MusicXmlReader::namedItem(const KoXmlNode& node, const char* localName)
+KXmlElement MusicXmlReader::namedItem(const KXmlNode& node, const char* localName)
 {
     if (m_namespace) {
         return KoXml::namedItemNS(node, m_namespace, localName);
@@ -122,12 +122,12 @@ KoXmlElement MusicXmlReader::namedItem(const KoXmlNode& node, const char* localN
     }
 }
 
-bool MusicXmlReader::checkNamespace(const KoXmlNode& node)
+bool MusicXmlReader::checkNamespace(const KXmlNode& node)
 {
     return !m_namespace || node.namespaceURI() == m_namespace;
 }
 
-Clef* MusicXmlReader::loadClef(const KoXmlElement& element, Staff* staff)
+Clef* MusicXmlReader::loadClef(const KXmlElement& element, Staff* staff)
 {
     QString shapeStr = getProperty(element, "sign");
     Clef::ClefShape shape = Clef::GClef;
@@ -153,7 +153,7 @@ Clef* MusicXmlReader::loadClef(const KoXmlElement& element, Staff* staff)
     return new Clef(staff, 0, shape, line, octave);
 }
 
-TimeSignature* MusicXmlReader::loadTimeSignature(const KoXmlElement& element, Staff* staff)
+TimeSignature* MusicXmlReader::loadTimeSignature(const KXmlElement& element, Staff* staff)
 {
     int beats = getProperty(element, "beats").toInt();
     int beat = getProperty(element, "beat-type").toInt();
@@ -161,11 +161,11 @@ TimeSignature* MusicXmlReader::loadTimeSignature(const KoXmlElement& element, St
     return new TimeSignature(staff, 0, beats, beat);
 }
 
-void MusicXmlReader::loadPart(const KoXmlElement& partElement, Part* part)
+void MusicXmlReader::loadPart(const KXmlElement& partElement, Part* part)
 {
     Sheet* sheet = part->sheet();
 
-    KoXmlElement barElem;
+    KXmlElement barElem;
 
     int curBar = 0;
     int curDivisions = 26880;
@@ -184,12 +184,12 @@ void MusicXmlReader::loadPart(const KoXmlElement& partElement, Part* part)
         QList<QList<Chord*> > beams;
         for (int i = 0; i < 6; i++) beams.append(QList<Chord*>());
 
-        KoXmlElement e;
+        KXmlElement e;
         forEachElement(e, barElem) {
             if (!checkNamespace(e)) continue;
 
             if (e.localName() == "attributes") {
-                KoXmlElement attr;
+                KXmlElement attr;
 
                 QString staffCountStr = getProperty(e, "staves");
                 if (!staffCountStr.isNull()) {
@@ -253,7 +253,7 @@ void MusicXmlReader::loadPart(const KoXmlElement& partElement, Part* part)
                     }
 
                     int nDots = 0;
-                    KoXmlElement dot;
+                    KXmlElement dot;
                     forEachElement(dot, e) {
                         if (checkNamespace(dot) && dot.localName() == "dot") nDots++;
                     }
@@ -263,7 +263,7 @@ void MusicXmlReader::loadPart(const KoXmlElement& partElement, Part* part)
                     Voice* voice = part->voice(voiceId);
                     voice->bar(bar)->addElement(lastNote);
 
-                    KoXmlElement beam;
+                    KXmlElement beam;
                     forEachElement(beam, e) if (checkNamespace(beam) && beam.localName() == "beam") {
                         int number = beam.attribute("number").toInt() - 1;
                         if (number < 0 || number > 5) continue;
@@ -291,7 +291,7 @@ void MusicXmlReader::loadPart(const KoXmlElement& partElement, Part* part)
 
                 }
 
-                KoXmlElement pitch = namedItem(e, "pitch");
+                KXmlElement pitch = namedItem(e, "pitch");
                 if (!pitch.isNull()) {
                     QString step = getProperty(pitch, "step");
                     int octave = getProperty(pitch, "octave").toInt();
@@ -319,7 +319,7 @@ void MusicXmlReader::loadPart(const KoXmlElement& partElement, Part* part)
 
                     Note* theNote = lastNote->addNote(part->staff(staffId), note, alter);
 
-                    KoXmlElement tie = namedItem(e, "tie");
+                    KXmlElement tie = namedItem(e, "tie");
                     if (!tie.isNull()) {
                         if (tie.attribute("type") == "start") {
                             theNote->setStartTie(true);

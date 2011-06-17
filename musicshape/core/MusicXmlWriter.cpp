@@ -31,7 +31,7 @@
 #include "TimeSignature.h"
 #include "Staff.h"
 
-#include <KoXmlWriter.h>
+#include <KXmlWriter.h>
 #include <kofficeversion.h>
 
 #include <kdebug.h>
@@ -46,7 +46,7 @@ MusicXmlWriter::~MusicXmlWriter()
 {
 }
 
-static void writePartGroup(KoXmlWriter& w, int id, PartGroup* group)
+static void writePartGroup(KXmlWriter& w, int id, PartGroup* group)
 {
     w.startElement("music:part-group");
     w.addAttribute("type", "start");
@@ -81,7 +81,7 @@ static void writePartGroup(KoXmlWriter& w, int id, PartGroup* group)
     w.endElement(); // music:part-group
 }
 
-static void writePartDesc(KoXmlWriter& w, int id, Part* part)
+static void writePartDesc(KXmlWriter& w, int id, Part* part)
 {
     w.startElement("music:score-part");
     w.addAttribute("id", QString("P%1").arg(id));
@@ -100,7 +100,7 @@ static void writePartDesc(KoXmlWriter& w, int id, Part* part)
     w.endElement(); // music:score-part
 }
 
-static void writeChord(KoXmlWriter& w, Chord* chord, Voice* voice, Part* part, int bar)
+static void writeChord(KXmlWriter& w, Chord* chord, Voice* voice, Part* part, int bar)
 {
     if (!chord->noteCount()) {
         w.startElement("music:note");
@@ -217,7 +217,7 @@ static void writeChord(KoXmlWriter& w, Chord* chord, Voice* voice, Part* part, i
     }
 }
 
-static void writeClef(KoXmlWriter& w, Clef* clef, Part* part)
+static void writeClef(KXmlWriter& w, Clef* clef, Part* part)
 {
     w.startElement("music:clef");
 
@@ -238,7 +238,7 @@ static void writeClef(KoXmlWriter& w, Clef* clef, Part* part)
     w.endElement(); // music:clef
 }
 
-static void writeKeySignature(KoXmlWriter& w, KeySignature* ks, Part* part)
+static void writeKeySignature(KXmlWriter& w, KeySignature* ks, Part* part)
 {
     w.startElement("music:key");
 
@@ -255,7 +255,7 @@ static void writeKeySignature(KoXmlWriter& w, KeySignature* ks, Part* part)
     w.endElement(); // music:key
 }
 
-static void writeTimeSignature(KoXmlWriter& w, TimeSignature* ts, Part* part)
+static void writeTimeSignature(KXmlWriter& w, TimeSignature* ts, Part* part)
 {
     w.startElement("music:time");
 
@@ -276,7 +276,7 @@ static void writeTimeSignature(KoXmlWriter& w, TimeSignature* ts, Part* part)
     w.endElement(); // music:time
 }
 
-static void writePart(KoXmlWriter& w, int id, Part* part)
+static void writePart(KXmlWriter& w, int id, Part* part)
 {
     w.startElement("music:part");
     w.addAttribute("id", QString("P%1").arg(id));
@@ -379,7 +379,7 @@ static void writePart(KoXmlWriter& w, int id, Part* part)
     w.endElement(); // music:part
 }
 
-void MusicXmlWriter::writeSheet(KoXmlWriter& w, Sheet* sheet, bool writeNamespaceDef)
+void MusicXmlWriter::writeSheet(KXmlWriter& w, Sheet* sheet, bool writeNamespaceDef)
 {
 //    w.startDocument("score-partwise", "-//Recordare//DTD MusicXML 1.1 Partwise//EN",
 //        "http://www.musicxml.org/dtds/partwise.dtd");

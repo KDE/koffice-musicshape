@@ -24,15 +24,15 @@
 #include "Bar.h"
 #include "Chord.h"
 #include "Note.h"
-#include <KoXmlWriter.h>
-#include <KoXmlReader.h>
+#include <KXmlWriter.h>
+#include <KXmlReader.h>
 
 #include <QtTest/QtTest>
 #include <QBuffer>
 
 using namespace MusicCore;
 
-bool compareNodes(KoXmlNode& valid, KoXmlNode& result, QString path = QString());
+bool compareNodes(KXmlNode& valid, KXmlNode& result, QString path = QString());
 bool validateOutput(MusicCore::Sheet* sheet, const char* fname);
 
 class MusicXmlWriterTest : public QObject
@@ -170,7 +170,7 @@ private slots:
 
 
 #define FAIL(message) do { QTest::qFail(message, __FILE__, __LINE__); return false; } while (0)
-bool compareNodes(KoXmlNode& valid, KoXmlNode& result, QString path)
+bool compareNodes(KXmlNode& valid, KXmlNode& result, QString path)
 {
     path += '/' + valid.nodeName();
 
@@ -204,8 +204,8 @@ bool compareNodes(KoXmlNode& valid, KoXmlNode& result, QString path)
     if (result.nodeName() == "identification") return true;
 
     // compare attributes
-    KoXmlElement r = result.toElement();
-    KoXmlElement v = valid.toElement();
+    KXmlElement r = result.toElement();
+    KXmlElement v = valid.toElement();
     if (!r.isNull() && !v.isNull()) {
         foreach (QString attr, KoXml::attributeNames(v)) {
             if (r.attribute(attr) != v.attribute(attr)) {
@@ -227,7 +227,7 @@ bool compareNodes(KoXmlNode& valid, KoXmlNode& result, QString path)
     }
 
     int idx = 0;
-    for (KoXmlNode rChild = result.firstChild(), vChild = valid.firstChild(); !rChild.isNull() || !vChild.isNull(); rChild = rChild.nextSibling(), vChild = vChild.nextSibling()) {
+    for (KXmlNode rChild = result.firstChild(), vChild = valid.firstChild(); !rChild.isNull() || !vChild.isNull(); rChild = rChild.nextSibling(), vChild = vChild.nextSibling()) {
         if (!compareNodes(vChild, rChild, (path + "[%1]").arg(idx++))) return false;
     }
 
@@ -239,7 +239,7 @@ bool validateOutput(Sheet* sheet, const char* fname)
     MusicCore::MusicXmlWriter writer;
     QIODevice* dev = new QBuffer();
     dev->open(QIODevice::ReadWrite);
-    KoXmlWriter xmlWriter(dev);
+    KXmlWriter xmlWriter(dev);
 
     xmlWriter.startDocument("score-partwise", "-//Recordare//DTD MusicXML 1.1 Partwise//EN",
                               "http://www.musicxml.org/dtds/partwise.dtd");
@@ -250,11 +250,11 @@ bool validateOutput(Sheet* sheet, const char* fname)
 
     QFile validFile(QString(KDESRCDIR "/files/%1").arg(fname));
     validFile.open(QIODevice::ReadOnly);
-    KoXmlDocument valid;
+    KXmlDocument valid;
     KoXml::setDocument(valid, &validFile, true);
 
     dev->reset();
-    KoXmlDocument result;
+    KXmlDocument result;
     KoXml::setDocument(result, dev, true);
 
     bool res = compareNodes(valid, result);

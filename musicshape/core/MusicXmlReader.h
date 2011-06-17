@@ -21,8 +21,8 @@
 
 #include <QString>
 
-class KoXmlElement;
-class KoXmlNode;
+class KXmlElement;
+class KXmlNode;
 
 namespace MusicCore {
     class Sheet;
@@ -35,17 +35,17 @@ class MusicXmlReader {
 public:
     MusicXmlReader(const char* musicNamespace = "http://www.koffice.org/music");
 
-    Sheet* loadSheet(const KoXmlElement& scoreElement);
+    Sheet* loadSheet(const KXmlElement& scoreElement);
 private:
     const char* m_namespace;
 
-    QString getProperty(const KoXmlElement& elem, const char *propName);
-    Clef* loadClef(const KoXmlElement& element, Staff* staff);
-    TimeSignature* loadTimeSignature(const KoXmlElement& element, Staff* staff);
-    void loadPart(const KoXmlElement& partElement, Part* part);
+    QString getProperty(const KXmlElement& elem, const char *propName);
+    Clef* loadClef(const KXmlElement& element, Staff* staff);
+    TimeSignature* loadTimeSignature(const KXmlElement& element, Staff* staff);
+    void loadPart(const KXmlElement& partElement, Part* part);
 
-    KoXmlElement namedItem(const KoXmlNode& node, const char* localName);
-    bool checkNamespace(const KoXmlNode& node);
+    KXmlElement namedItem(const KXmlNode& node, const char* localName);
+    bool checkNamespace(const KXmlNode& node);
 };
 
 } // namespace MusicCore

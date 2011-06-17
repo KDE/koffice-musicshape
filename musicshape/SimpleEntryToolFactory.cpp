@@ -25,7 +25,7 @@
 
 
 SimpleEntryToolFactory::SimpleEntryToolFactory(QObject* parent)
-    : KoToolFactoryBase(parent, "SimpleEntryToolFactoryId")
+    : KToolFactoryBase(parent, "SimpleEntryToolFactoryId")
 {
     setToolTip(i18n("Music editing tool"));
     setIcon("music-note-16th");
@@ -38,7 +38,7 @@ SimpleEntryToolFactory::~SimpleEntryToolFactory()
 {
 }
 
-KoToolBase* SimpleEntryToolFactory::createTool(KoCanvasBase* canvas)
+KToolBase* SimpleEntryToolFactory::createTool(KCanvasBase* canvas)
 {
     return new SimpleEntryTool(canvas);
 }

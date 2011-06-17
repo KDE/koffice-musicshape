@@ -20,7 +20,7 @@
 #define SIMPLEENTRY_TOOL
 
 #include <QPointF>
-#include <KoToolBase.h>
+#include <KToolBase.h>
 #include "core/Chord.h"
 
 class MusicShape;
@@ -36,22 +36,22 @@ namespace MusicCore {
 /**
  * Tool that provides functionality to insert/remove notes/rests. Named after Finale's Simple Entry tool.
  */
-class SimpleEntryTool : public KoToolBase
+class SimpleEntryTool : public KToolBase
 {
     Q_OBJECT
 public:
-    explicit SimpleEntryTool(KoCanvasBase* canvas);
+    explicit SimpleEntryTool(KCanvasBase* canvas);
     ~SimpleEntryTool();
 
-    virtual void paint(QPainter& painter, const KoViewConverter& converter);
+    virtual void paint(QPainter& painter, const KViewConverter& converter);
 
-    virtual void mousePressEvent(KoPointerEvent* event) ;
-    virtual void mouseMoveEvent(KoPointerEvent* event);
-    virtual void mouseReleaseEvent(KoPointerEvent* event);
+    virtual void mousePressEvent(KPointerEvent* event) ;
+    virtual void mouseMoveEvent(KPointerEvent* event);
+    virtual void mouseReleaseEvent(KPointerEvent* event);
 
     virtual void keyPressEvent(QKeyEvent *event);
 
-    virtual void activate(ToolActivation toolActivation, const QSet<KoShape*> &shapes);
+    virtual void activate(ToolActivation toolActivation, const QSet<KShape*> &shapes);
     void deactivate();
 
     void addCommand(QUndoCommand* command);

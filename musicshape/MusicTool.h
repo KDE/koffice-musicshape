@@ -19,24 +19,24 @@
 #ifndef MUSIC_TOOL
 #define MUSIC_TOOL
 
-#include <KoToolBase.h>
+#include <KToolBase.h>
 class MusicShape;
 class QUndoCommand;
 
-class MusicTool : public KoToolBase
+class MusicTool : public KToolBase
 {
   Q_OBJECT
 public:
-  explicit MusicTool(KoCanvasBase* canvas);
+  explicit MusicTool(KCanvasBase* canvas);
   ~MusicTool();
 
-  virtual void paint(QPainter& painter, const KoViewConverter& converter);
+  virtual void paint(QPainter& painter, const KViewConverter& converter);
 
-  virtual void mousePressEvent(KoPointerEvent* event) ;
-  virtual void mouseMoveEvent(KoPointerEvent* event);
-  virtual void mouseReleaseEvent(KoPointerEvent* event);
+  virtual void mousePressEvent(KPointerEvent* event) ;
+  virtual void mouseMoveEvent(KPointerEvent* event);
+  virtual void mouseReleaseEvent(KPointerEvent* event);
 
-    virtual void activate(ToolActivation toolActivation, const QSet<KoShape*> &shapes);
+    virtual void activate(ToolActivation toolActivation, const QSet<KShape*> &shapes);
   void deactivate();
 
   void addCommand(QUndoCommand* command);

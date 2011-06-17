@@ -19,8 +19,8 @@
 #ifndef MUSIC_SHAPE
 #define MUSIC_SHAPE
 
-#include <KoShape.h>
-#include <KoFrameShape.h>
+#include <KShape.h>
+#include <KFrameShape.h>
 #include <kurl.h>
 #define MusicShapeId "MusicShape"
 
@@ -32,22 +32,22 @@ class MusicRenderer;
 class MusicStyle;
 class Engraver;
 
-class MusicShape : public KoShape, public KoFrameShape
+class MusicShape : public KShape, public KFrameShape
 {
 public:
     MusicShape();
     virtual ~MusicShape();
     /// reimplemented
-    virtual void paint(QPainter& painter, const KoViewConverter& converter);
-    void constPaint(QPainter& painter, const KoViewConverter& converter) const;
+    virtual void paint(QPainter& painter, const KViewConverter& converter);
+    void constPaint(QPainter& painter, const KViewConverter& converter) const;
 
     /// reimplemented
     virtual void setSize(const QSizeF &newSize);
 
     /// reimplemented
-    virtual void saveOdf(KoShapeSavingContext & context) const;
+    virtual void saveOdf(KShapeSavingContext & context) const;
     // reimplemented
-    virtual bool loadOdf(const KoXmlElement & element, KoShapeLoadingContext &context);
+    virtual bool loadOdf(const KXmlElement & element, KShapeLoadingContext &context);
 
     MusicCore::Sheet* sheet();
     void setSheet(MusicCore::Sheet* sheet, int firstSystem);
@@ -64,7 +64,7 @@ public:
     MusicShape* predecessor() { return m_predecessor; }
 protected:
     // reimplemented
-    virtual bool loadOdfFrameElement(const KoXmlElement & element, KoShapeLoadingContext & context);
+    virtual bool loadOdfFrameElement(const KXmlElement & element, KShapeLoadingContext & context);
 private:
     MusicCore::Sheet* m_sheet;
     int m_firstSystem;

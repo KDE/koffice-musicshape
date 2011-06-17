@@ -20,10 +20,10 @@
 #include <limits.h>
 #include <QPainter>
 #include <kdebug.h>
-#include <KoViewConverter.h>
-#include <KoShapeSavingContext.h>
-#include <KoXmlWriter.h>
-#include <KoXmlReader.h>
+#include <KViewConverter.h>
+#include <KShapeSavingContext.h>
+#include <KXmlWriter.h>
+#include <KXmlReader.h>
 
 #include "core/Sheet.h"
 #include "core/Part.h"
@@ -49,7 +49,7 @@ using namespace MusicCore;
 //static MusicShape* firstShape = 0;
 
 MusicShape::MusicShape()
-    : KoFrameShape("http://www.koffice.org/music", "shape"),
+    : KFrameShape("http://www.koffice.org/music", "shape"),
     m_firstSystem(0),
     m_style(new MusicStyle),
     m_engraver(new Engraver()),
@@ -99,17 +99,17 @@ MusicShape::~MusicShape()
 
 void MusicShape::setSize(const QSizeF &newSize)
 {
-    KoShape::setSize(newSize);
+    KShape::setSize(newSize);
 
     engrave(false);
 }
 
-void MusicShape::paint(QPainter& painter, const KoViewConverter& converter)
+void MusicShape::paint(QPainter& painter, const KViewConverter& converter)
 {
     constPaint(painter, converter);
 }
 
-void MusicShape::constPaint(QPainter& painter, const KoViewConverter& converter) const
+void MusicShape::constPaint(QPainter& painter, const KViewConverter& converter) const
 {
     applyConversion(painter, converter);
 
@@ -119,9 +119,9 @@ void MusicShape::constPaint(QPainter& painter, const KoViewConverter& converter)
     m_renderer->renderSheet(painter, m_sheet, m_firstSystem, m_lastSystem);
 }
 
-void MusicShape::saveOdf(KoShapeSavingContext & context) const
+void MusicShape::saveOdf(KShapeSavingContext & context) const
 {
-    KoXmlWriter& writer = context.xmlWriter();
+    KXmlWriter& writer = context.xmlWriter();
     writer.startElement("draw:frame");
     saveOdfAttributes(context, OdfAllAttributes);
 
@@ -138,7 +138,7 @@ void MusicShape::saveOdf(KoShapeSavingContext & context) const
     QPainter painter(&img);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setRenderHint(QPainter::TextAntialiasing);
-    KoViewConverter converter;
+    KViewConverter converter;
     converter.setZoom(previewZoom);
     constPaint(painter, converter);
     writer.startElement("draw:image");
@@ -156,14 +156,14 @@ void MusicShape::saveOdf(KoShapeSavingContext & context) const
     writer.endElement(); // draw:frame
 }
 
-bool MusicShape::loadOdf(const KoXmlElement & element, KoShapeLoadingContext &context) {
+bool MusicShape::loadOdf(const KXmlElement & element, KShapeLoadingContext &context) {
     loadOdfAttributes(element, context, OdfAllAttributes);
     return loadOdfFrame(element, context);
 }
 
-bool MusicShape::loadOdfFrameElement(const KoXmlElement & element, KoShapeLoadingContext & /*context*/)
+bool MusicShape::loadOdfFrameElement(const KXmlElement & element, KShapeLoadingContext & /*context*/)
 {
-    KoXmlElement score = KoXml::namedItemNS(element, "http://www.koffice.org/music", "score-partwise");
+    KXmlElement score = KoXml::namedItemNS(element, "http://www.koffice.org/music", "score-partwise");
     if (score.isNull()) {
         kWarning() << "no music:score-partwise element as first child";
         return false;

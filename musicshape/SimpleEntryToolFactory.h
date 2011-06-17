@@ -20,15 +20,15 @@
 #define SIMPLEENTRY_TOOL_FACTORY
 
 
-#include <KoToolFactoryBase.h>
+#include <KToolFactoryBase.h>
 
-class SimpleEntryToolFactory : public KoToolFactoryBase
+class SimpleEntryToolFactory : public KToolFactoryBase
 {
 public:
     SimpleEntryToolFactory(QObject* parent);
     ~SimpleEntryToolFactory();
 
-    KoToolBase* createTool(KoCanvasBase* canvas);
+    KToolBase* createTool(KCanvasBase* canvas);
 };
 
 

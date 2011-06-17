@@ -29,12 +29,12 @@
 #include <KInputDialog>
 #include <KAction>
 
-#include <KoCanvasBase.h>
-#include <KoSelection.h>
-#include <KoShapeManager.h>
-#include <KoPointerEvent.h>
-#include <KoXmlReader.h>
-#include <KoXmlWriter.h>
+#include <KCanvasBase.h>
+#include <KSelection.h>
+#include <KShapeManager.h>
+#include <KPointerEvent.h>
+#include <KXmlReader.h>
+#include <KXmlWriter.h>
 
 #include "MusicShape.h"
 #include "Renderer.h"
@@ -77,8 +77,8 @@
 
 using namespace MusicCore;
 
-SimpleEntryTool::SimpleEntryTool(KoCanvasBase* canvas)
-    : KoToolBase(canvas),
+SimpleEntryTool::SimpleEntryTool(KCanvasBase* canvas)
+    : KToolBase(canvas),
     m_musicshape(0),
     m_voice(0),
     m_selectionStart(-1),
@@ -310,10 +310,10 @@ SimpleEntryTool::~SimpleEntryTool()
     qDeleteAll(m_menus);
 }
 
-void SimpleEntryTool::activate(ToolActivation toolActivation, const QSet<KoShape*> &shapes)
+void SimpleEntryTool::activate(ToolActivation toolActivation, const QSet<KShape*> &shapes)
 {
     Q_UNUSED(toolActivation);
-    foreach (KoShape *shape, shapes) {
+    foreach (KShape *shape, shapes) {
         m_musicshape = dynamic_cast<MusicShape*>(shape);
         if (m_musicshape)
         {
@@ -337,7 +337,7 @@ void SimpleEntryTool::deactivate()
     m_cursor = 0;
 }
 
-void SimpleEntryTool::paint(QPainter& painter, const KoViewConverter& viewConverter)
+void SimpleEntryTool::paint(QPainter& painter, const KViewConverter& viewConverter)
 {
     Sheet* sheet = m_musicshape->sheet();
     int firstSystem = m_musicshape->firstSystem();
@@ -358,7 +358,7 @@ void SimpleEntryTool::paint(QPainter& painter, const KoViewConverter& viewConver
         while (shape) {
             painter.save();
             painter.setTransform(shape->absoluteTransformation(&viewConverter) * painter.transform());
-            KoShape::applyConversion(painter, viewConverter);
+            KShape::applyConversion(painter, viewConverter);
             painter.setClipRect(QRectF(QPointF(0, 0), shape->size()));
 
             for (int b = qMax(shape->firstBar(), m_selectionStart); b <= m_selectionEnd && b < sheet->barCount() && b <= shape->lastBar(); b++) {
@@ -394,7 +394,7 @@ void SimpleEntryTool::paint(QPainter& painter, const KoViewConverter& viewConver
     }
 
     painter.setTransform(m_musicshape->absoluteTransformation(&viewConverter) * painter.transform());
-    KoShape::applyConversion(painter, viewConverter);
+    KShape::applyConversion(painter, viewConverter);
     painter.setClipRect(QRectF(QPointF(0, 0), m_musicshape->size()));
 
     if (m_activeAction->isVoiceAware()) {
@@ -414,11 +414,11 @@ void SimpleEntryTool::paint(QPainter& painter, const KoViewConverter& viewConver
     m_activeAction->renderPreview(painter, m_point);
 }
 
-void SimpleEntryTool::mousePressEvent(KoPointerEvent* event)
+void SimpleEntryTool::mousePressEvent(KPointerEvent* event)
 {
     if (!m_musicshape->boundingRect().contains(event->point)) {
         QRectF area(event->point, QSizeF(1,1));
-        foreach(KoShape *shape, canvas()->shapeManager()->shapesAt(area, true)) {
+        foreach(KShape *shape, canvas()->shapeManager()->shapesAt(area, true)) {
             MusicShape *musicshape = dynamic_cast<MusicShape*>(shape);
             if (musicshape) {
                 m_musicshape->update();
@@ -521,11 +521,11 @@ void SimpleEntryTool::mousePressEvent(KoPointerEvent* event)
     }
 }
 
-void SimpleEntryTool::mouseMoveEvent(KoPointerEvent* event)
+void SimpleEntryTool::mouseMoveEvent(KPointerEvent* event)
 {
     if (!m_musicshape->boundingRect().contains(event->point)) {
         QRectF area(event->point, QSizeF(1,1));
-        foreach(KoShape *shape, canvas()->shapeManager()->shapesAt(area, true)) {
+        foreach(KShape *shape, canvas()->shapeManager()->shapesAt(area, true)) {
             MusicShape *musicshape = dynamic_cast<MusicShape*>(shape);
             if (musicshape) {
                 if (musicshape->sheet() == m_musicshape->sheet() || !event->buttons()) {
@@ -618,7 +618,7 @@ void SimpleEntryTool::mouseMoveEvent(KoPointerEvent* event)
     }
 }
 
-void SimpleEntryTool::mouseReleaseEvent(KoPointerEvent*)
+void SimpleEntryTool::mouseReleaseEvent(KPointerEvent*)
 {
 }
 
@@ -751,9 +751,9 @@ void SimpleEntryTool::importSheet()
     if (file.isEmpty() || file.isNull()) return;
     QFile f(file);
     f.open(QIODevice::ReadOnly);
-    KoXmlDocument doc;
+    KXmlDocument doc;
     KoXml::setDocument(doc, &f, true);
-    KoXmlElement e = doc.documentElement();
+    KXmlElement e = doc.documentElement();
     //kDebug() << e.localName() << e.nodeName();
     Sheet* sheet = MusicXmlReader(0).loadSheet(doc.documentElement());
     if (sheet) {
@@ -769,7 +769,7 @@ void SimpleEntryTool::exportSheet()
 
     QBuffer b;
     b.open(QIODevice::ReadWrite);
-    KoXmlWriter kw(&b);
+    KXmlWriter kw(&b);
     kw.startDocument("score-partwise", "-//Recordare//DTD MusicXML 2.0 Partwise//EN",
                      "http://www.musicxml.org/dtds/partwise.dtd");
     MusicXmlWriter().writeSheet(kw, m_musicshape->sheet(), true);

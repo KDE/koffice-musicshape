@@ -20,9 +20,9 @@
 #define MUSIC_SHAPE_FACTORY
 
 
-#include <KoShapeFactoryBase.h>
+#include <KShapeFactoryBase.h>
 
-class KoShape;
+class KShape;
 
 class MusicShapePlugin : public QObject
 {
@@ -35,14 +35,14 @@ public:
 
 };
 
-class MusicShapeFactory : public KoShapeFactoryBase
+class MusicShapeFactory : public KShapeFactoryBase
 {
 public:
     MusicShapeFactory(QObject* parent);
     ~MusicShapeFactory() {}
 
-    virtual KoShape *createDefaultShape(KoResourceManager *documentResources = 0) const;
-    virtual bool supports(const KoXmlElement & e, KoShapeLoadingContext &context) const;
+    virtual KShape *createDefaultShape(KResourceManager *documentResources = 0) const;
+    virtual bool supports(const KXmlElement & e, KShapeLoadingContext &context) const;
 };
 
 #endif

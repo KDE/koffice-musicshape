@@ -23,9 +23,9 @@
 #include <klocale.h>
 #include <kiconloader.h>
 
-#include <KoCanvasBase.h>
-#include <KoSelection.h>
-#include <KoShapeManager.h>
+#include <KCanvasBase.h>
+#include <KSelection.h>
+#include <KShapeManager.h>
 
 #include "MusicShape.h"
 
@@ -34,8 +34,8 @@
 
 #include "dialogs/PartsWidget.h"
 
-MusicTool::MusicTool(KoCanvasBase* canvas)
-    : KoToolBase(canvas),
+MusicTool::MusicTool(KCanvasBase* canvas)
+    : KToolBase(canvas),
       m_musicshape(0)
 {
 }
@@ -44,12 +44,12 @@ MusicTool::~MusicTool()
 {
 }
 
-void MusicTool::activate(ToolActivation toolActivation, const QSet<KoShape*> &shapes)
+void MusicTool::activate(ToolActivation toolActivation, const QSet<KShape*> &shapes)
 {
     Q_UNUSED(toolActivation);
     //kDebug() ;
 
-    foreach (KoShape *shape, shapes) {
+    foreach (KShape *shape, shapes) {
         m_musicshape = dynamic_cast<MusicShape*>(shape);
         if (m_musicshape)
             break;
@@ -69,21 +69,21 @@ void MusicTool::deactivate()
   m_musicshape = 0;
 }
 
-void MusicTool::paint(QPainter& painter, const KoViewConverter& viewConverter)
+void MusicTool::paint(QPainter& painter, const KViewConverter& viewConverter)
 {
     Q_UNUSED(painter);
     Q_UNUSED(viewConverter);
 }
 
-void MusicTool::mousePressEvent(KoPointerEvent*)
+void MusicTool::mousePressEvent(KPointerEvent*)
 {
 }
 
-void MusicTool::mouseMoveEvent(KoPointerEvent*)
+void MusicTool::mouseMoveEvent(KPointerEvent*)
 {
 }
 
-void MusicTool::mouseReleaseEvent(KoPointerEvent*)
+void MusicTool::mouseReleaseEvent(KPointerEvent*)
 {
 }
 

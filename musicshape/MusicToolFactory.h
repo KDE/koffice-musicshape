@@ -20,15 +20,15 @@
 #define MUSIC_TOOL_FACTORY
 
 
-#include <KoToolFactoryBase.h>
+#include <KToolFactoryBase.h>
 
-class MusicToolFactory : public KoToolFactoryBase
+class MusicToolFactory : public KToolFactoryBase
 {
 public:
     MusicToolFactory(QObject* parent);
     ~MusicToolFactory();
 
-    KoToolBase* createTool(KoCanvasBase* canvas);
+    KToolBase* createTool(KCanvasBase* canvas);
 };
 
 
