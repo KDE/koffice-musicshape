@@ -84,6 +84,7 @@ SimpleEntryTool::SimpleEntryTool(KCanvasBase* canvas)
     m_selectionStart(-1),
     m_cursor(0)
 {
+    setFlags(ToolHandleKeyEvents);
     QActionGroup* actionGroup = new QActionGroup(this);
     connect(actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(activeActionChanged(QAction*)));
 

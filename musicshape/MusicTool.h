@@ -32,10 +32,6 @@ public:
 
   virtual void paint(QPainter& painter, const KViewConverter& converter);
 
-  virtual void mousePressEvent(KPointerEvent* event) ;
-  virtual void mouseMoveEvent(KPointerEvent* event);
-  virtual void mouseReleaseEvent(KPointerEvent* event);
-
     virtual void activate(ToolActivation toolActivation, const QSet<KShape*> &shapes);
   void deactivate();
 

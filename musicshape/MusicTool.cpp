@@ -38,6 +38,7 @@ MusicTool::MusicTool(KCanvasBase* canvas)
     : KToolBase(canvas),
       m_musicshape(0)
 {
+    setFlags(ToolDoesntHandleMouseEvents);
 }
 
 MusicTool::~MusicTool()
@@ -73,18 +74,6 @@ void MusicTool::paint(QPainter& painter, const KViewConverter& viewConverter)
 {
     Q_UNUSED(painter);
     Q_UNUSED(viewConverter);
-}
-
-void MusicTool::mousePressEvent(KPointerEvent*)
-{
-}
-
-void MusicTool::mouseMoveEvent(KPointerEvent*)
-{
-}
-
-void MusicTool::mouseReleaseEvent(KPointerEvent*)
-{
 }
 
 void MusicTool::addCommand(QUndoCommand* command)
