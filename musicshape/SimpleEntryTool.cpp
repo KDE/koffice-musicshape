@@ -30,7 +30,6 @@
 #include <KAction>
 
 #include <KCanvasBase.h>
-#include <KSelection.h>
 #include <KShapeManager.h>
 #include <KPointerEvent.h>
 #include <KXmlReader.h>

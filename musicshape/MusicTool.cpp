@@ -24,7 +24,6 @@
 #include <kiconloader.h>
 
 #include <KCanvasBase.h>
-#include <KSelection.h>
 #include <KShapeManager.h>
 
 #include "MusicShape.h"
